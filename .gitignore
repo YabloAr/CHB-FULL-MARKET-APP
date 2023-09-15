@@ -1,0 +1,9 @@
+node_modules
+futureFixes.txt
+ignore
+.vscode
+buenasPracticas.txt
+.env 
+http-responses-yablo.js
+http-responses.txt
+.eslintrc.json
