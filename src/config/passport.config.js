@@ -1,7 +1,7 @@
 import passport from 'passport'
 import local from 'passport-local'
 import userModel from '../models/schemas/users.schema.js'
-import { isValidPassword } from '../utils.js'
+import { isValidPassword } from '../utils/utils.js'
 import gitHubService from 'passport-github2'
 import UsersDTO from '../controllers/DTO/user.dto.js'
 

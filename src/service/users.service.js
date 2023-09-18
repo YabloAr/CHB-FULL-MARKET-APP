@@ -1,4 +1,3 @@
-// import { isValidPassword } from "../utils.js";
 import usersDao from "../models/daos/users.dao.js";
 import UsersDTO from '../controllers/DTO/user.dto.js'
 

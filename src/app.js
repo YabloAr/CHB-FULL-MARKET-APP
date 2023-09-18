@@ -4,7 +4,7 @@
 //DEPENDENCIAS
 import "dotenv/config";
 import express from "express"
-import __dirname from "./utils.js";
+import __dirname from "./utils/utils.js";
 import handlebars from "express-handlebars";
 import appRouter from "./routes/app.router.js";
 import mongoose from "mongoose";

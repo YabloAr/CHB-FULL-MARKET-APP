@@ -1,4 +1,4 @@
-import { generateNewCode } from "../../utils.js"
+import { generateNewCode } from "../../utils/utils.js"
 
 export default class TicketDTO {
     constructor(totalPrice, purchaser) {

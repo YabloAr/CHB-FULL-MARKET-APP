@@ -6,6 +6,9 @@ import { checkAdmin, checkSession, checkUser } from "../middlewares/auth.middlew
 import createProducts from "../mocking/mockingProducts.js";
 import EError from "../errors/EErrorNum.js";
 import customError from "../errors/customErrors.js";
+import { addLogger } from './../utils/logger.js';
+import { logger } from '../utils/loggerTwo.js'
+
 
 const router = Router()
 
@@ -133,14 +136,25 @@ router.get('/mockingproducts', async (req, res) => {
         let randomProducts = await createProducts(100)
         res.send({ message: 'Mock products x100 created with faker and falso.', payload: randomProducts })
     } catch (error) {
-        customError.createError({
-            name: "mocking-products error",
-            cause: "Cannot create products",
-            message: "Try again",
-            code: EError.MOCKING_ERROR //4
-        })
+
+        throw new Error(error.message)
+        //     name: "mocking-products error",
+        //     error: error,
+        //     message: error.message,
+        //     code: EError.MOCKING_ERROR
+        // })
     }
 })
+
+router.get("/test-logger", (req, res) => {
+    logger.error("soy un error");
+    logger.warn("soy un warn");
+    logger.info("soy un info");
+    logger.http("soy un http");
+    logger.verbose("soy un verbose");
+    logger.debug("soy un debug");
+    res.send("probando loggers");
+});
 
 
 
