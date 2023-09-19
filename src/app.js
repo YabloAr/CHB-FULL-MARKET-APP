@@ -4,7 +4,7 @@
 //DEPENDENCIAS
 import "dotenv/config";
 import express from "express"
-import __dirname from "./utils/utils.js";
+import __root from "./utils/utils.js";
 import handlebars from "express-handlebars";
 import appRouter from "./routes/app.router.js";
 import mongoose from "mongoose";
@@ -51,10 +51,9 @@ app.use("/", appRouter)
 
 //HANDLEBARS - Indicamos el uso de handlebars
 app.engine('handlebars', handlebars.engine()) //habilitamos el uso del motor de plantillas en el servidor.
-app.set('views', __dirname + '/views') //declaramos la carpeta con las vistas para las plantillas.
+app.set('views', __root + '/views') //declaramos la carpeta con las vistas para las plantillas.
 app.set('view engine', 'handlebars') //le decimos a express que use el motor de vistas de handlebars.
-app.use(express.static(__dirname + '/public')) //estaba en socket
-
+app.use(express.static(__root + '/public')) //estaba en socket
 
 //PASSPORT - Indicamos el uso de passport
 initPassport()

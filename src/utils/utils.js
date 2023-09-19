@@ -49,5 +49,6 @@ export const generateNewCode = () => {
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const __root = dirname(__dirname)
 
-export default __dirname;
+export default __root;

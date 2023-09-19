@@ -4,7 +4,7 @@ import 'dotenv/config'
 const { combine, timestamp, printf, colorize } = winston.format;
 
 const myFormat = printf(({ level, message, timestamp }) => {
-    return `${timestamp} ${level}: ${message}`;
+    return `${level}: ${message} | ${timestamp}`;
 });
 
 const levels = {
