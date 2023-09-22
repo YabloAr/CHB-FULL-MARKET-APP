@@ -1,9 +1,9 @@
 //Paso Uno, crear utils
+import envConfig from "../config/env.config.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import "dotenv/config";
 
 //compareSyync tomara primero el password sin hashear y lo compara con el password ya hasheado en la base 
 //de datos. Devuelve true o false dependiendo si el password coincide o no.
@@ -12,7 +12,7 @@ export const isValidPassword = (user, password) => bcrypt.compareSync(password, 
 //--------------------------Json Web Token, log 18.08
 //La logica esta bien, pero en el proceso tuve un problema con los headers de fetch, que no llegaban al servidor
 //con la propiedad 'Authorization': 'Bearer {tokenid}', entonces el req.headers.authorization llega como undefined.
-const KEY = process.env.JASONWEBTOKEN_KEY
+const KEY = envConfig.sessions.JWT_KEY
 export const generateToken = (user) => {
     const token = jwt.sign({ user }, KEY, { expiresIn: '6h' })
     return token //contiene solamente un string encryptado.

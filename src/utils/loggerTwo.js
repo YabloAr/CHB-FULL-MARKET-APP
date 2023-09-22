@@ -1,5 +1,5 @@
 import winston from "winston";
-import 'dotenv/config'
+import envConfig from "../config/env.config.js";
 
 const { combine, timestamp, printf, colorize } = winston.format;
 
@@ -28,7 +28,7 @@ winston.addColors(colors);
 
 export let logger;
 
-switch (process.env.LOGGER_LEVEL) {
+switch (envConfig.server.LOGGER_LEVEL) {
     case "debug":
         logger = winston.createLogger({
             levels,
@@ -41,7 +41,7 @@ switch (process.env.LOGGER_LEVEL) {
             ),
             transports: [
                 new winston.transports.Console({
-                    level: process.env.LOGGER_LEVEL, // Este nivel se mostrará en la consola
+                    level: envConfig.server.LOGGER_LEVEL, // Este nivel se mostrará en la consola
                     format: winston.format.colorize({ colors: true }),
                 }),
             ],
@@ -59,7 +59,7 @@ switch (process.env.LOGGER_LEVEL) {
             ),
             transports: [
                 new winston.transports.Console({
-                    level: process.env.LOGGER_LEVEL, // Este nivel se mostrará en la consola
+                    level: envConfig.server.LOGGER_LEVEL, // Este nivel se mostrará en la consola
                     format: winston.format.colorize({ colors: true }),
                 }),
                 new winston.transports.File({

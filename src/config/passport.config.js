@@ -1,3 +1,4 @@
+import envConfig from '../config/env.config.js'
 import passport from 'passport'
 import local from 'passport-local'
 import userModel from '../models/schemas/users.schema.js'
@@ -43,9 +44,9 @@ passport.use('login', new LocalStrategy({ usernameField: 'email' }, async (userE
 
 //github
 passport.use('github', new gitHubService({
-    clientID: process.env.GIT_HUB_STRATEGY_CLIENT_ID,
-    clientSecret: process.env.GIT_HUB_STRATEGY_CLIENT_SECRET,
-    callbackURL: process.env.GIT_HUB_STRATEGY_CALLBACK_URL
+    clientID: envConfig.github.CLIENT_ID,
+    clientSecret: envConfig.github.CLIENT_SECRET,
+    callbackURL: envConfig.github.CALLBACK_URL
 }, async (accessToken, refreshToken, profile, done) => {
     try {
         // console.log('passport strat GitHubService profile is:')

@@ -2,7 +2,7 @@
 //Alumno: Mellyid Salomón
 
 //DEPENDENCIAS
-import "dotenv/config";
+import envConfig from './config/env.config.js';
 import express from "express"
 import __root from "./utils/utils.js";
 import handlebars from "express-handlebars";
@@ -16,8 +16,10 @@ import setupSocket from "./chat/socket.js";
 import cors from 'cors'
 import compression from "express-compression";
 
+//-----------------Comienzo configuracion de la app
+
 //EXPRESS - Definimos el servidor y su config
-const PORT = 8080
+const PORT = envConfig.server.PORT
 const app = express()
 app.use(cors())
 const httpserver = app.listen(PORT, () => console.log("Server up."))
@@ -28,17 +30,17 @@ app.use(express.urlencoded({ extended: true }))
 
 //MONGO - Habilitamos conexion a nuestra db
 mongoose.set('strictQuery', false) //corrige error de deprecacion del sistema
-const connection = mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.hiwmxr5.mongodb.net/ecommerce?retryWrites=true&w=majority`,
+const connection = mongoose.connect(envConfig.mongo.URL,
     { useNewUrlParser: true, useUnifiedTopology: true }) //añadi estos dos parametros por docs de mongoose, evita futura deprecacion.
 
 //SESSIONS - Indicamos el uso de sessions y su config
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.hiwmxr5.mongodb.net/ecommerce?retryWrites=true&w=majority`,
+        mongoUrl: envConfig.mongo.URL,
         mongoOptions: { useNewUrlParser: true, useUnifiedTopology: true },
         ttl: 5000
     }),
-    secret: process.env.SESSION_SECRET,
+    secret: envConfig.sessions.SECRET,
     resave: true,
     // saveUninitialized: al estar en falso, durante la vida de la session, si esta session file no cambia, no se guarda.
     //Para este proyecto, no nos interesa guardar sesiones sin registrar en la db.
@@ -63,5 +65,4 @@ app.use(passport.session())
 //SOCKET IO - Instanciamos el socket en nuestro server
 setupSocket(httpserver)
 
-
-
+//---------------final del inicio de App
