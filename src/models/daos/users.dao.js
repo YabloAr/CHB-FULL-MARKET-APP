@@ -56,12 +56,27 @@ class UsersDAO {
 
     updateUser = async (newData) => {
         try {
-            console.log('-------------------------------------USERS DAO update User.')
             const foundUser = await userModel.findById(newData._id)
-            console.log('found user is:')
-            console.log(foundUser)
             const updatedUser = await userModel.findByIdAndUpdate(foundUser._id, newData, { new: true });
             return updatedUser;
+        } catch (error) {
+            throw error
+        }
+    }
+
+    changeRole = async (uid) => {
+        try {
+            const foundUser = await userModel.findById(uid)
+            if (!foundUser) return { status: 'error', message: 'user not found' }
+
+            if (foundUser.role === 'admin') {
+                return { message: 'Your are Admin, king of the Rhino Realm, your vow cant be changed.' }
+            }
+
+            const newRole = (foundUser.role === 'user' ? 'premium' : 'user')
+            const result = await userModel.findByIdAndUpdate(uid, { role: newRole }, { new: true });
+
+            return result
         } catch (error) {
             throw error
         }

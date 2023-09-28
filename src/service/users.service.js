@@ -40,6 +40,15 @@ class UserService {
         }
     }
 
+    async changeRole(uid) {
+        try {
+            const result = await usersDao.changeRole(uid)
+            return result
+        } catch (error) {
+            throw error
+        }
+    }
+
     async createUser(userRegisterData) {
         try {
             const newUser = await UsersDTO.createUser(userRegisterData)

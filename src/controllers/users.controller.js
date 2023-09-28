@@ -50,6 +50,13 @@ class UserController {
         }
     }
 
+    changeRole = async (req, res) => {
+        const uid = req.params.uid
+        const result = await usersService.changeRole(uid)
+        res.status(200).send({ payload: result });
+    }
+
+
     deleteUser = async (req, res) => {
         try {
             const uid = req.params.uid

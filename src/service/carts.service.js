@@ -23,7 +23,7 @@ class CartsService {
         } catch (error) { throw error }
     }
 
-    async addProductToCart(cid, pid /*, user*/) {
+    async addProductToCart(cid, pid, user) {
         try {
             // const foundProduct = ProductsDAO.getProductById(pid)
 
@@ -32,7 +32,7 @@ class CartsService {
             // }
 
 
-            return await CartsDAO.addProductToCart(cid, pid)
+            return await CartsDAO.addProductToCart(cid, pid, user)
         } catch (error) { throw error }
     }
 
