@@ -1,5 +1,5 @@
 import ProductsService from '../service/products.service.js';
-import ProductDTO from './DTO/product.dto.js';
+import ProductDTO from '../models/DTO/product.dto.js';
 
 
 class ProductController {
@@ -30,10 +30,8 @@ class ProductController {
     createProduct = async (req, res) => {
         try {
             let newProduct = req.body
+            newProduct.owner = (req.session.role === 'admin' ? req.session.role : req.session.user.email)
 
-            // if (req.session.role === 'admin' || 'premium') {
-            //     newProduct.owner = req.session.email
-            // }
             const completeProduct = new ProductDTO(newProduct)
 
             const response = await ProductsService.createProduct(completeProduct)
@@ -48,8 +46,9 @@ class ProductController {
         try {
             const pid = req.params.pid
             const newData = req.body
+            const user = req.session.user
 
-            const response = await ProductsService.updateProduct(pid, newData);
+            const response = await ProductsService.updateProduct(pid, newData, user);
             res.status(200).send(response)
         } catch (error) {
             res.status(400).send({ status: 'Error 400', message: error.message });
@@ -60,7 +59,8 @@ class ProductController {
     deleteProduct = async (req, res) => {
         try {
             const pid = req.params.pid
-            const response = await ProductsService.deleteProduct(pid)
+            const user = req.session.user
+            const response = await ProductsService.deleteProduct(pid, user)
             res.status(200).send(response)
         } catch (error) {
             res.status(400).send({ status: 'Error 400', message: error.message });

@@ -13,6 +13,7 @@ export default class ProductsDTO {
         this.price = product.price;
         this.stock = product.stock;
         this.thumbnail = product.thumbnail;
+        this.owner = product.owner
     }
 
     isValidProduct(product) {
@@ -23,7 +24,8 @@ export default class ProductsDTO {
             typeof product.category === 'string' &&
             typeof product.price === 'number' &&
             typeof product.stock === 'number' &&
-            typeof product.thumbnail === 'string'
+            typeof product.thumbnail === 'string' &&
+            typeof product.owner === 'string'
         );
     }
 }

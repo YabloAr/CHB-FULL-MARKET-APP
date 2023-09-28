@@ -1,6 +1,6 @@
 import productsService from "./products.service.js";
 import cartsService from "./carts.service.js";
-import TicketDTO from "../controllers/DTO/ticket.dto.js";
+import TicketDTO from "../models/DTO/ticket.dto.js";
 import ticketsDao from "../models/daos/tickets.dao.js"
 
 class TicketService {

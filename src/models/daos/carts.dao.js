@@ -1,5 +1,5 @@
 import cartsModel from '../schemas/carts.schema.js'
-import CartDTO from '../../controllers/DTO/cart.dto.js'
+import CartDTO from '../DTO/cart.dto.js'
 import productModel from '../schemas/products.schema.js'
 
 class CartsDAO {

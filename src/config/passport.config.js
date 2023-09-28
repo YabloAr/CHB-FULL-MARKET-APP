@@ -4,7 +4,7 @@ import local from 'passport-local'
 import userModel from '../models/schemas/users.schema.js'
 import { isValidPassword } from '../utils/utils.js'
 import gitHubService from 'passport-github2'
-import UsersDTO from '../controllers/DTO/user.dto.js'
+import UsersDTO from '../models/DTO/user.dto.js'
 
 const LocalStrategy = local.Strategy
 

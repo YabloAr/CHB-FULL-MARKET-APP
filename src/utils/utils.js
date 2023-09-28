@@ -63,7 +63,7 @@ export const recoveryPassToken = (req, res, next) => {
 
 //--------------------------TerminaJson Web Token, log 18.08
 
-//--------------------------Genera un codigo random para el productDTO
+//--------------------------Genera un codigo random para el productDTO y el ticketDTO
 export const generateNewCode = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     let randomCode = '';

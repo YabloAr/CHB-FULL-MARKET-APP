@@ -39,25 +39,37 @@ class ProductsDAO {
     }
 
     //UPDATE PRODUCT
-    updateProduct = async (pid, updatedFields) => {
+    updateProduct = async (pid, newData, user) => {
         try {
             let foundProduct = await productsModel.findById(pid)
             if (!foundProduct) return null
-            const updatedProduct = await productsModel.findByIdAndUpdate(pid, updatedFields, { new: true });
-            return updatedProduct;
+
+            if (user.role === 'admin' || user.email === foundProduct.owner) {
+                const updatedProduct = await productsModel.findByIdAndUpdate(pid, newData, { new: true });
+                return updatedProduct;
+            } else {
+                return { message: 'You are not an admin nor the owner of the product, forbidden.' };
+            }
         } catch (error) {
             throw error;
         }
     }
 
     //DELETE PRODUCT
-    deleteProduct = async (pid) => {
+    deleteProduct = async (pid, user) => {
         try {
-            const result = await productsModel.deleteOne({ _id: pid });
-            if (result.deletedCount === 0) {
-                return null
+            let foundProduct = await productsModel.findById(pid)
+            if (!foundProduct) return null
+
+            if (user.role === 'admin' || user.email === foundProduct.owner) {
+                const result = await productsModel.deleteOne({ _id: pid });
+                return { status: 'Success.', message: `Product ${pid} deleted.` };
+            } else {
+                return { message: 'You are not an admin nor the owner of the product, forbidden.' };
             }
-            return { status: 'Success.', message: `Product ${pid} deleted.` };
+
+
+
         } catch (error) { return { status: 'Error', message: error.message } }
     };
 

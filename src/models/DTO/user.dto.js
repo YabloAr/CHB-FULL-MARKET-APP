@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import cartsDao from '../../models/daos/carts.dao.js';
+import cartsDao from '../daos/carts.dao.js';
 
 class UsersDTO {
   constructor() {

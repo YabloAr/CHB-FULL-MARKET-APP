@@ -1,5 +1,5 @@
 import usersDao from "../models/daos/users.dao.js";
-import UsersDTO from '../controllers/DTO/user.dto.js'
+import UsersDTO from '../models/DTO/user.dto.js'
 import bcrypt from 'bcrypt';
 
 class UserService {

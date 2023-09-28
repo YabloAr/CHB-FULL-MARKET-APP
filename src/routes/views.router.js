@@ -1,7 +1,7 @@
 import { Router } from "express";
 import CartDAO from '../models/daos/carts.dao.js'
 import productsModel from "../models/schemas/products.schema.js";
-import SafeUsersDTO from '../controllers/DTO/safeUser.dto.js';
+import SafeUsersDTO from '../models/DTO/safeUser.dto.js';
 import { checkAdmin, checkSession, checkUser } from "../middlewares/auth.middleware.js";
 import createProducts from "../mocking/mockingProducts.js";
 import { logger } from '../utils/logger.js'

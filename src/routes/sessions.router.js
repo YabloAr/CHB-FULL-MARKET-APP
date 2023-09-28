@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import passport from 'passport'
-import SafeUserDTO from '../controllers/DTO/safeUser.dto.js'
+import SafeUserDTO from '../models/DTO/safeUser.dto.js'
 import { checkAdmin, checkSession } from '../middlewares/auth.middleware.js'
 
 const router = Router()
