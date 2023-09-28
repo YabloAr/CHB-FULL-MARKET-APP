@@ -14,7 +14,7 @@ export const isValidPassword = (user, password) => bcrypt.compareSync(password, 
 //con la propiedad 'Authorization': 'Bearer {tokenid}', entonces el req.headers.authorization llega como undefined.
 const KEY = envConfig.sessions.JWT_KEY
 export const generateToken = (user) => {
-    const token = jwt.sign({ user }, KEY, { expiresIn: '6h' })
+    const token = jwt.sign({ user }, KEY, { expiresIn: '1h' })
     return token //contiene solamente un string encryptado.
 }
 export const authToken = (req, res, next) => {
@@ -33,6 +33,34 @@ export const authToken = (req, res, next) => {
         next()
     })
 }
+
+export const recoveryPassToken = (req, res, next) => {
+    const token = req.params.token
+
+    jwt.verify(token, KEY, (err, decoded) => {
+        if (err) {
+            // Token is either invalid or expired
+            return res.status(401).send('Invalid or expired token');
+        }
+
+        // Token is valid, and you can access its contents in the `decoded` object
+        const userEmail = decoded.userEmail;
+        const currentPassword = decoded.currentPassword;
+
+        // Check the token's expiration
+        const currentTimestamp = Math.floor(Date.now() / 1000); // Get the current time in seconds
+        if (decoded.exp <= currentTimestamp) {
+            // Token has expired
+            return res.status(401).send('Token has expired');
+        }
+
+        // Token is valid, and it hasn't expired
+        // You can attach the token data to the request for later use if needed
+        req.tokenData = { userEmail, currentPassword };
+        next(); // Proceed to the next middleware or route handler
+    });
+}
+
 //--------------------------TerminaJson Web Token, log 18.08
 
 //--------------------------Genera un codigo random para el productDTO

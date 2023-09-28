@@ -31,8 +31,8 @@ class ProductsDAO {
     //NEW PRODUCT
     createProduct = async (product) => {
         try {
-            await productsModel.create(product)
-            return ({ status: 200, message: `Product added.`, payload: product })
+            const response = await productsModel.create(product)
+            return { status: 200, message: `Product added.`, payload: response }
         } catch (error) {
             throw error;
         }

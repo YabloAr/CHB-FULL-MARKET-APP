@@ -29,9 +29,13 @@ class ProductController {
     //NEW PRODUCT
     createProduct = async (req, res) => {
         try {
-            const newProduct = req.body
-            console.log(newProduct)
+            let newProduct = req.body
+
+            // if (req.session.role === 'admin' || 'premium') {
+            //     newProduct.owner = req.session.email
+            // }
             const completeProduct = new ProductDTO(newProduct)
+
             const response = await ProductsService.createProduct(completeProduct)
             res.status(200).send(response)
         } catch (error) {

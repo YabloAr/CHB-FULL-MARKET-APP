@@ -1,6 +1,6 @@
 import { getDAOS } from '../models/daos/index.dao.js'
 
-const { CartsDAO } = getDAOS()
+const { CartsDAO, ProductsDAO } = getDAOS()
 
 class CartsService {
 
@@ -23,8 +23,15 @@ class CartsService {
         } catch (error) { throw error }
     }
 
-    async addProductToCart(cid, pid) {
+    async addProductToCart(cid, pid /*, user*/) {
         try {
+            // const foundProduct = ProductsDAO.getProductById(pid)
+
+            // if (foundProduct.owner === user.email){
+            //     return tomatelasNoPodes
+            // }
+
+
             return await CartsDAO.addProductToCart(cid, pid)
         } catch (error) { throw error }
     }

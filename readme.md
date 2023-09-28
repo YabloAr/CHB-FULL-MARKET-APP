@@ -29,4 +29,4 @@ Aprendiendo y codeando, a continuación una vista rápida!:
 
 ## Licencia
 
-Este proyecto está bajo una licencia que no existe llamada 'No hay gracia el hurto'.
+Este proyecto está bajo una licencia que no existe llamada 'Usa este codigo a tu propia suerte' 😄

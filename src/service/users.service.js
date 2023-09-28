@@ -1,5 +1,6 @@
 import usersDao from "../models/daos/users.dao.js";
 import UsersDTO from '../controllers/DTO/user.dto.js'
+import bcrypt from 'bcrypt';
 
 class UserService {
     getAll = async () => {
@@ -16,6 +17,24 @@ class UserService {
         try {
             const user = await usersDao.getUserById(uid)
             return user;
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async getUserByEmail(email) {
+        try {
+            const user = await usersDao.getUserByEmail(email)
+            return user
+        } catch (error) {
+            throw error
+        }
+    }
+
+    async updateUser(newData) {
+        try {
+            const result = await usersDao.updateUser(newData)
+            return result
         } catch (error) {
             throw error
         }
@@ -39,6 +58,8 @@ class UserService {
             throw error
         }
     }
+
+
 }
 
 export default new UserService();

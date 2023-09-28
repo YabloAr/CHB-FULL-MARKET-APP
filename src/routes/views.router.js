@@ -4,11 +4,8 @@ import productsModel from "../models/schemas/products.schema.js";
 import SafeUsersDTO from '../controllers/DTO/safeUser.dto.js';
 import { checkAdmin, checkSession, checkUser } from "../middlewares/auth.middleware.js";
 import createProducts from "../mocking/mockingProducts.js";
-import EError from "../errors/EErrorNum.js";
-import customError from "../errors/customErrors.js";
-import { addLogger } from './../utils/logger.js';
-import { logger } from '../utils/loggerTwo.js'
-
+import { logger } from '../utils/logger.js'
+import { recoveryPassToken } from "../utils/utils.js";
 
 const router = Router()
 
@@ -39,6 +36,22 @@ router.get('/login', (req, res) => {
         session.name = req.session.user.first_name
     }
     res.render('login', { session })
+})
+
+router.get('/password-recovery-request', (req, res) => {
+    const session = { current: false }
+    if (req.session.user) {
+        console.log('already logged in')
+        session.current = true
+        session.name = req.session.user.first_name
+    }
+    res.render('password-recovery-request', { session })
+})
+
+router.get('/reset-password/:token', recoveryPassToken, (req, res) => {
+    const { userEmail, currentPassword } = req.tokenData;
+
+    res.render('reset-password', { userEmail, currentPassword })
 })
 
 //-------------------------------EVERYONE
