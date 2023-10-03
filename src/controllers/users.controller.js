@@ -56,7 +56,6 @@ class UserController {
         res.status(200).send({ payload: result });
     }
 
-
     deleteUser = async (req, res) => {
         try {
             const uid = req.params.uid
