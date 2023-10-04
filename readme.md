@@ -21,6 +21,7 @@ Aprendiendo y codeando, a continuación una vista rápida!:
 - **mongoose-paginate-v2**: Facilita la paginación de resultados.
 - **winston**: Registra lo que está pasando en mi aplicación.
 - **nodemailer**: ¡Envía correos desde Node.js!
+- **swagger-jsdoc & swagger-ui-express**: /api/docs para encontrar la documentacion de mi proyecto.
 
 ### Herramientas para Desarrollo
 

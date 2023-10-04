@@ -9,7 +9,7 @@ class ProductController {
             let allProducts = await ProductsService.getAll()
             res.status(200).send({ total: allProducts.length, payload: allProducts })
         } catch (error) {
-            res.status(400).send({ status: 'Error 400', message: error.message });
+            res.status(500).send({ status: 'Error 500', message: error.message });
         }
     }
 
@@ -19,10 +19,10 @@ class ProductController {
             const pid = req.params.pid
 
             let foundProduct = await ProductsService.getProductById(pid)
-            if (!foundProduct) return { status: 'failed.', message: `Product ${pid} not found in db.` }
+            if (!foundProduct) return res.status(404).send({ status: 'failed.', message: `Product ${pid} not found in db.` })
             res.status(200).send(foundProduct)
         } catch (error) {
-            res.status(400).send({ status: 'Error 400', message: error.message });
+            res.status(500).send({ status: 'Error 500', message: error.message });
         }
     }
 
@@ -37,7 +37,7 @@ class ProductController {
             const response = await ProductsService.createProduct(completeProduct)
             res.status(200).send(response)
         } catch (error) {
-            res.status(400).send({ status: 'Error 400', message: error.message });
+            res.status(500).send({ status: 'Error 500', message: error.message });
         }
     }
 

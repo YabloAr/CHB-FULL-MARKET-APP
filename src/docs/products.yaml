@@ -1,0 +1,142 @@
+paths:
+  /api/products:
+    get:
+      summary: Get all products.
+      tags:
+        - Products
+      responses:
+        "200":
+          description: All products obtained.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Product'
+        "500":
+          description: Server error.
+    post:
+      summary: Create a new product
+      tags:
+        - Products
+      responses:
+        "200":
+          description: Product created succesfully.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Product'
+        "500":
+          description: Server error.
+  /api/products/{ProductId}:
+    get:
+      summary: Get the product with named id
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: This is the id of the product you want to get.
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Product obtained.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Product'
+        "404":
+          description: The product was not found.
+        "500":
+          description: Server error.
+    put:
+      summary: Update the product with named id.
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: This is the id of the product you want to update.
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Product updated.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Product'
+        "404":
+          description: The product was not found.
+        "500":
+          description: Server error.
+    delete:
+      summary: Delete the product with named id.
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: This is the id of the product you want to delete.
+          schema:
+            $type: String
+      responses:
+        "200":
+          description: Product deleted.
+        "404":
+          description: The product was not found.
+        "500":
+          description: Server error.
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Mongo document Id.
+        title:
+          type: String
+          description: Title of the product.
+        category:
+          type: String
+          description: Category of the product.
+        description:
+          type: String
+          description: Description of the product.
+        price:
+          type: Number
+          description: Price of the product.
+        thumbnail:
+          type: String
+          description: Url of the product thumbnail.
+        code:
+          type: String
+          description: Unique code of the product.
+        stock:
+          type: Number
+          description: Stock of the product.
+        owner:
+          type: String
+          description: If premium user, then email. If admin, admin.
+      example:
+        _id: ObjectId('64bf188801574abb33ba45eb')
+        title: Men's Leather Jacket
+        category: Men's Clothing
+        description: The color could be slightly different between on the screen and in practice.
+        price: 59
+        thumbnail: https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg
+        code: fG6KO
+        stock: 33
+        owner: johndoe@outerspace.com

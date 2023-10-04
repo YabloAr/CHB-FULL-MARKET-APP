@@ -4,7 +4,7 @@
 //DEPENDENCIAS
 import envConfig from './config/env.config.js';
 import express from "express"
-import __root from "./utils/utils.js";
+import { __src } from "./utils/utils.js";
 import handlebars from "express-handlebars";
 import appRouter from "./routes/app.router.js";
 import mongoose from "mongoose";
@@ -15,6 +15,9 @@ import { initPassport } from "./config/passport.config.js";
 import setupSocket from "./chat/socket.js";
 import cors from 'cors'
 import compression from "express-compression";
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUiExpress from 'swagger-ui-express';
+
 
 //-----------------Comienzo configuracion de la app
 
@@ -53,9 +56,9 @@ app.use("/", appRouter)
 
 //HANDLEBARS - Indicamos el uso de handlebars
 app.engine('handlebars', handlebars.engine()) //habilitamos el uso del motor de plantillas en el servidor.
-app.set('views', __root + '/views') //declaramos la carpeta con las vistas para las plantillas.
+app.set('views', __src + '/views') //declaramos la carpeta con las vistas para las plantillas.
 app.set('view engine', 'handlebars') //le decimos a express que use el motor de vistas de handlebars.
-app.use(express.static(__root + '/public')) //estaba en socket
+app.use(express.static(__src + '/public')) //estaba en socket
 
 //PASSPORT - Indicamos el uso de passport
 initPassport()
@@ -66,3 +69,26 @@ app.use(passport.session())
 setupSocket(httpserver)
 
 //---------------final del inicio de App
+
+//SWAGGER Documentacion de API
+
+const swaggerOptions = {
+    definition: {
+        openapi: '3.0.0',
+        info: {
+            title: 'Ecommerce API Doc',
+            description: 'Here you can find my API documentation.',
+            version: '1.0.0',
+            contact: {
+                name: 'Mellyid Salomon (Yablo)',
+                url: 'https://www.linkedin.com/in/mellyid-salomon-873042113/',
+            }
+        }
+    },
+    apis: [`${__src}/docs/*.yaml`]
+}
+
+const swaggerSpecs = swaggerJSDoc(swaggerOptions)
+app.use('/api/docs', swaggerUiExpress.serve, swaggerUiExpress.setup(swaggerSpecs))
+
+//---------------final swagger doc
