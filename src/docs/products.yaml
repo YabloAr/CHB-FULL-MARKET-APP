@@ -108,27 +108,35 @@ components:
           description: Mongo document Id.
         title:
           type: String
+          required: true
           description: Title of the product.
         category:
           type: String
+          required: true
           description: Category of the product.
         description:
           type: String
+          required: true
           description: Description of the product.
         price:
           type: Number
+          required: true
           description: Price of the product.
         thumbnail:
           type: String
+          required: true
           description: Url of the product thumbnail.
         code:
           type: String
+          required: true
           description: Unique code of the product.
         stock:
           type: Number
+          required: true
           description: Stock of the product.
         owner:
           type: String
+          required: true
           description: If premium user, then email. If admin, admin.
       example:
         _id: ObjectId('64bf188801574abb33ba45eb')
