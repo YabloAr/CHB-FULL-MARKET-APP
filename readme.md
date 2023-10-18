@@ -1,7 +1,7 @@
 # CODERHOUSE - BACKEND #43360 - Tercera Entrega de Proyecto Final
 ### Tutoria a cargo de: Noelia Cossio.
 
-Repositorio para la entrega "Módulos de testing para el Proyecto Final" de la clase numero 41 "Testing Avanzados"
+Repositorio para la entrega de la clase numero 44 "Cuarta practica integradora"
 
 ## Proyecto en Progreso: Servidor Backend para Ecommerce
 
