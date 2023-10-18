@@ -3,6 +3,7 @@ import productModel from "../../src/models/schemas/products.schema.js";
 import cartModel from "../../src/models/schemas/carts.schema.js";
 import userModel from "../../src/models/schemas/users.schema.js";
 
+//la conexion no funciona, ni desde aca ni desde el test propio.
 export const connectTestDatabase = async () => {
     await mongoose.connect('mongodb+srv://Yablo:qGz*785_c.Yfwcf@cluster0.hiwmxr5.mongodb.net/ecommerceTest?retryWrites=true&w=majority')
 }
