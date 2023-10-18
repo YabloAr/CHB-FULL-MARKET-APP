@@ -5,7 +5,7 @@ Repositorio para la entrega de la clase numero 44 "Cuarta practica integradora"
 
 ## Proyecto en Progreso: Servidor Backend para Ecommerce
 
-Aprendiendo y codeando, a continuación una vista rápida!:
+Aprendiendo y codeando, a continuación una vista rápida! :
 
 ## Dependencias de Terceros
 
