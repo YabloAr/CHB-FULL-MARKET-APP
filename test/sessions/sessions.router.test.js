@@ -5,14 +5,9 @@ import supertest from "supertest";
 
 const requester = supertest("http://localhost:8080");
 
-describe("Session router test case", async function () {
+//----deberia generar una conexion a una db de prueba, pero no pude lograrlo.
 
-    //------error, no me conecta a esta db, nose porque, asique todos los test seran de peticiones inofensivas, porlas dudas.
-    // before(async () => {
-    //     const mongoTestURL = 'mongodb+srv://Yablo:qGz*785_c.Yfwcf@cluster0.hiwmxr5.mongodb.net/ecommerceTest?retryWrites=true&w=majority'
-    //     await mongoose.connect(mongoTestURL,
-    //         { useNewUrlParser: true, useUnifiedTopology: true })
-    // })
+describe("Session router test case", async function () {
 
     it("[GET] /api/users - obtener usuarios", async function () {
         const { _body, ok, statusCode } = await requester.get('/api/users')
@@ -31,8 +26,4 @@ describe("Session router test case", async function () {
         const cookieHeader = response.headers["set-cookie"][0];
         expect(cookieHeader).to.be.ok;
     });
-
-    // after(async () => {
-    //     await mongoose.connection.close()
-    // })
 });

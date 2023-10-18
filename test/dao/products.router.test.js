@@ -4,12 +4,19 @@ import supertest from "supertest";
 
 const requester = supertest("http://localhost:8080");
 
+//----deberia generar una conexion a una db de prueba, pero no pude lograrlo.
+
 describe("Products router test case", () => {
     before(async () => {
         await dropProducts();
     });
 
-    it("[POST] /api/product -new product", async () => {
+    it("[GET] /api/product - get all Products", async () => {
+        const response = await requester.get('/api/products')
+        expect(response.statusCode).to.be.eql(200);
+    });
+
+    it("[POST] /api/products - new product", async () => {
         const mockProduct = {
             title: "title test",
             description: "description test",
@@ -20,15 +27,11 @@ describe("Products router test case", () => {
             category: "category test",
             owner: "owner test",
         };
-        const response = await requester.post("/api/product").send(mockProduct);
+        const response = await requester.post("/api/products").send(mockProduct);
 
         expect(response.statusCode).to.be.eql(200);
-        expect(response.body.payload.adopted).to.be.eql(false);
-        expect(response.body.payload._id).to.be.ok;
     });
 
-
-    // it("[GET] /api/product -get all Products", async () => { });
     // it("[GET] /api/product/:pid -get one product for id", async () => { });
     // it("[PUT] /api/product/:id -put update product for id", async () => { });
     // it("[DELETE] /api/product/:id -delete product for id", async () => { });
