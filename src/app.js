@@ -17,6 +17,7 @@ import cors from 'cors'
 import compression from "express-compression";
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from 'swagger-ui-express';
+import addLogger from './middlewares/logger.middleware.js';
 
 
 //-----------------Comienzo configuracion de la app
@@ -64,6 +65,9 @@ app.use(express.static(__src + '/public')) //estaba en socket
 initPassport()
 app.use(passport.initialize())
 app.use(passport.session())
+
+//LOGGER - Indicamos el uso del logger
+app.use(addLogger)
 
 //SOCKET IO - Instanciamos el socket en nuestro server
 setupSocket(httpserver)

@@ -20,6 +20,7 @@ passport.use('register', new LocalStrategy(
 
             const newUser = await UsersDTO.createUser(userRegisterData)
             let result = await userModel.create(newUser)
+            console.log(result)
             return done(null, result)
         } catch (error) {
             throw error

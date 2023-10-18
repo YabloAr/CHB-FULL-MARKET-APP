@@ -9,8 +9,8 @@ const router = Router()
 //agregar middlewares de credentiales
 router.get('/', ProductsController.getAll)
 router.get('/:pid', ProductsController.getProductById)
-router.post('/', checkSession, checkAdminAndPremium, ProductsController.createProduct)
-router.put('/:pid', checkSession, checkAdminAndPremium, ProductsController.updateProduct)
-router.delete('/:pid', checkSession, checkAdminAndPremium, ProductsController.deleteProduct)
+router.post('/', ProductsController.createProduct)
+router.put('/:pid', ProductsController.updateProduct)
+router.delete('/:pid', ProductsController.deleteProduct)
 
 export default router

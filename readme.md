@@ -1,7 +1,7 @@
 # CODERHOUSE - BACKEND #43360 - Tercera Entrega de Proyecto Final
 ### Tutoria a cargo de: Noelia Cossio.
 
-Repositorio para la entrega "Tercera Entrega Integradora" de la clase numero 37 "Práctica de integración sobre tu ecommerce"
+Repositorio para la entrega "Módulos de testing para el Proyecto Final" de la clase numero 41 "Testing Avanzados"
 
 ## Proyecto en Progreso: Servidor Backend para Ecommerce
 
@@ -22,6 +22,7 @@ Aprendiendo y codeando, a continuación una vista rápida!:
 - **winston**: Registra lo que está pasando en mi aplicación.
 - **nodemailer**: ¡Envía correos desde Node.js!
 - **swagger-jsdoc & swagger-ui-express**: /api/docs para encontrar la documentacion de mi proyecto.
+- **supertest** : Veamos si esto de aqui funciona...
 
 ### Herramientas para Desarrollo
 

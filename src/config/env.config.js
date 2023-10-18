@@ -3,7 +3,7 @@ import 'dotenv/config'
 export default {
     server: {
         PORT: parseInt(process.env.PORT),
-        STAGE: process.env.STAGE,
+        STAGE: process.env.STAGE || 'production',
         LOGGER_LEVEL: process.env.LOGGER_LEVEL
     },
     mongo: {
