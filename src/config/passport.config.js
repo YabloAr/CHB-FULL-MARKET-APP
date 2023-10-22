@@ -31,13 +31,16 @@ passport.use('register', new LocalStrategy(
 //login strategy
 passport.use('login', new LocalStrategy({ usernameField: 'email' }, async (userEmail, password, done) => {
     try {
-        const exists = await userModel.findOne({ email: userEmail })
-        if (!exists) {
+        const user = await userModel.findOne({ email: userEmail })
+        if (!user) {
             console.log("passport.config login strat : user doesnt exist")
             return done(null, false)
         }
-        if (!isValidPassword(exists, password)) return done(null, false)
-        return done(null, exists) //cuando esta info sale de aca, queda guardada en req.user
+        if (!isValidPassword(user, password)) return done(null, false)
+        user.last_connection = new Date();
+        await user.save();
+
+        return done(null, user) //cuando esta info sale de aca, queda guardada en req.user
     } catch (error) {
         return done(error)
     }

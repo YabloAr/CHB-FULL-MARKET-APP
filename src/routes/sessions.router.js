@@ -2,6 +2,7 @@ import { Router } from 'express'
 import passport from 'passport'
 import SafeUserDTO from '../models/DTO/safeUser.dto.js'
 import { checkAdmin, checkSession } from '../middlewares/auth.middleware.js'
+import userModel from '../models/schemas/users.schema.js'
 
 const router = Router()
 
@@ -45,6 +46,11 @@ router.get('/current', checkSession, checkAdmin, (req, res) => {
 })
 
 router.post('/logout', async (req, res) => {
+
+    const user = await userModel.findOne({ email: req.session.user.email })
+    user.last_connection = new Date();
+    await user.save();
+
     req.session.destroy(error => {
         if (error) { res.status(400).send({ error: 'logout error', message: error }) }
         res.status(200).send('Session ended.')
@@ -54,3 +60,4 @@ router.post('/logout', async (req, res) => {
 
 
 export default router
+

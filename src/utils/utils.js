@@ -4,15 +4,37 @@ import { fileURLToPath } from "url";
 import { dirname } from "path";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import multer from "multer";
 
-//compareSyync tomara primero el password sin hashear y lo compara con el password ya hasheado en la base 
-//de datos. Devuelve true o false dependiendo si el password coincide o no.
+//--------------------------[PROJECT DIRECTORIES]
+
+export const __filename = fileURLToPath(import.meta.url);
+export const __dirname = dirname(__filename);
+export const __src = dirname(__dirname)
+
+
+//--------------------------[PASSWORD VALIDATION]
+
 export const isValidPassword = (user, password) => bcrypt.compareSync(password, user.password);
 
-//--------------------------Json Web Token, log 18.08
-//La logica esta bien, pero en el proceso tuve un problema con los headers de fetch, que no llegaban al servidor
-//con la propiedad 'Authorization': 'Bearer {tokenid}', entonces el req.headers.authorization llega como undefined.
+
+//--------------------------[GENERATE NEW CODE] - Genera un codigo random para el productDTO y el ticketDTO
+
+export const generateNewCode = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let randomCode = '';
+    for (let i = 0; i < 7; i++) {
+        const randomIndex = Math.floor(Math.random() * characters.length);
+        randomCode += characters[randomIndex];
+    }
+    return randomCode
+}
+
+
+//--------------------------[JSON WEB TOKEN]  - 18.08
+
 const KEY = envConfig.sessions.JWT_KEY
+
 export const generateToken = (user) => {
     const token = jwt.sign({ user }, KEY, { expiresIn: '1h' })
     return token //contiene solamente un string encryptado.
@@ -33,7 +55,6 @@ export const authToken = (req, res, next) => {
         next()
     })
 }
-
 export const recoveryPassToken = (req, res, next) => {
     const token = req.params.token
 
@@ -61,20 +82,22 @@ export const recoveryPassToken = (req, res, next) => {
     });
 }
 
-//--------------------------TerminaJson Web Token, log 18.08
 
-//--------------------------Genera un codigo random para el productDTO y el ticketDTO
-export const generateNewCode = () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let randomCode = '';
-    for (let i = 0; i < 7; i++) {
-        const randomIndex = Math.floor(Math.random() * characters.length);
-        randomCode += characters[randomIndex];
+//--------------------------[MULTER: FILE MANAGER FOR USERS]
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, __src + '/public/images')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.originalname)
     }
-    return randomCode
-}
+})
 
+export const uploader = multer({ storage })
 
-export const __filename = fileURLToPath(import.meta.url);
-export const __dirname = dirname(__filename);
-export const __src = dirname(__dirname)
+export const userUpload = uploader.fields([
+    { name: 'profile', maxCount: 1 },
+    { name: 'adress', maxCount: 1 },
+    { name: 'account', maxCount: 1 }
+])

@@ -1,11 +1,30 @@
-<div>
+<section>
   <ul>
     <h4>Safe User DTO Info</h4>
     <p>Fullname: {{user.fullName}}</p>
     <p>Email: {{user.email}}</p>
     <p>Role: {{user.role}}</p>
   </ul>
-</div>
+  <h4>Upload Credential Files</h4>
+  <form action="/api/users/upload" method="post" enctype="multipart/form-data">
+    <ul>
+      <li>
+        <label for="profile"><h5>Profile image:</h5></label>
+        <input type="file" name="profile" required />
+      </li>
+      <li>
+        <label for="adress"><h5>Adress file:</h5></label>
+        <input type="file" name="adress" required />
+      </li>
+      <li>
+        <label for="account"><h5>Account file:</h5></label>
+        <input type="file" name="account" required />
+      </li>
+    </ul>
+    <input type="submit" />
+  </form>
+
+</section>
 <a href="http://localhost:8080/"> <button> Home </button></a>
 <button style="width: 120px" id="logout">Logout </button>
 <script src="/js/logout.js"></script>
