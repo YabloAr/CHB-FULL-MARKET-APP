@@ -14,11 +14,8 @@ router.post('/', UsersController.createUser)
 router.put('/premium/:uid', UsersController.changeRole)
 router.delete('/:uid', UsersController.deleteUser)
 
-
-router.post('/upload', userUpload, UsersController.uploadFields)
-router.post('/:uid/documents/fields', userUpload, UsersController.uploadFields)
-router.post('/:uid/documents', uploader.single('singleImage'), UsersController.uploadSingle)
-router.post('/:uid/documents/array', uploader.array('imagesArray', 3), UsersController.uploadArray)
+//MULTER
+router.post('/:uid/documents', userUpload, UsersController.uploadCredentials)
 
 
 

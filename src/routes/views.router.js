@@ -6,6 +6,8 @@ import { checkAdmin, checkSession, checkUser } from "../middlewares/auth.middlew
 import createProducts from "../mocking/mockingProducts.js";
 import { logger } from '../utils/logger.js'
 import { recoveryPassToken } from "../utils/utils.js";
+import userDto from "../models/DTO/user.dto.js";
+import usersService from "../service/users.service.js";
 
 const router = Router()
 
@@ -105,8 +107,9 @@ router.get('/carts', checkSession, async (req, res) => {
 
 router.get('/profile', checkSession, async (req, res) => {
     const safeUserData = new SafeUsersDTO(req.session.user)
-    res.render('profile', { user: safeUserData })
-
+    const user = await usersService.getUserByEmail(req.session.user.email)
+    safeUserData._id = user._id.toString()
+    res.render('profile', { safeUserData })
 })
 
 //-------------------------------USERS

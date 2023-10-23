@@ -94,7 +94,7 @@ const storage = multer.diskStorage({
     }
 })
 
-export const uploader = multer({ storage })
+export const uploader = multer({ storage: storage })
 
 export const userUpload = uploader.fields([
     { name: 'profile', maxCount: 1 },

@@ -137,42 +137,10 @@ class UserController {
         }
     }
 
-    uploadSingle = async (req, res) => {
-        console.log(req.file)
-        console.log('--------termina req.file')
-        if (!req.file) {
-            return res.status(400).send({ status: 'error', message: 'No se encontro el archivo' })
-        }
-        let user = req.body
-        user.profile = req.file.path
-        console.log(user)
-        console.log('--------termina user')
-        res.status(200).send({ status: 'Success', message: 'Todo bien' })
-    }
-
-    uploadArray = async (req, res) => {
-        console.log(req.files)
-        console.log('--------termina req.files')
-
-        const profileImage = req.files
-
-        if (!req.files) {
-            return res.status(400).send({ status: 'error', message: 'No se encontro el archivo' })
-        }
-
-        const user = req.body
-        user.profile
-
-        console.log('--------termina user')
-        res.status(200).send({ status: 'Success', message: 'Todo bien' })
-    }
-
-    uploadFields = async (req, res) => {
-        // Check if req.files is defined and contains the expected fields.
+    uploadCredentials = async (req, res) => {
         if (!req.files || !req.files['profile'] || !req.files['adress'] || !req.files['account']) {
             return res.status(400).send({ status: 'error', message: 'No se encontraron todos los archivos esperados' });
         }
-
 
         // Access and process the uploaded files for each field.
         const profileImage = req.files['profile'][0];
