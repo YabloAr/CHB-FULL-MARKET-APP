@@ -52,7 +52,10 @@ class UserController {
 
     changeRole = async (req, res) => {
         const uid = req.params.uid
-        const result = await usersService.changeRole(uid)
+        const user = await usersService.getUserById(uid)
+        if (user.documents.length === 2) {
+            const result = await usersService.changeRole(uid)
+        }
         res.status(200).send({ payload: result });
     }
 
@@ -138,27 +141,24 @@ class UserController {
     }
 
     uploadCredentials = async (req, res) => {
-        if (!req.files['profile'] || !req.files['adress'] || !req.files['account']) {
+        if (!req.files['profile'] || !req.files['address'] || !req.files['account']) {
             return res.status(400).send({ status: 'error', message: 'No se encontraron todos los archivos esperados o no se especificó el propósito.' });
         }
-
-        // Access and process the uploaded files for each field.
+        //Capturamos los archivos
         const profileImage = req.files['profile'][0];
-        const adressImage = req.files['adress'][0];
+        const addressImage = req.files['address'][0];
         const accountImage = req.files['account'][0];
 
-        console.log(req.uploadInfo)
-        // You can now work with each image separately.
-        // For example, you can save them to a database or file system.
-
-        // Respond with a success message.
-        res.status(200).send({ status: 'Success', message: 'Archivos subidos con éxito' });
+        //Agregamos los documentos al usuario
+        const user = await usersService.getUserByEmail(req.session.user.email)
+        user.documents = [
+            { name: 'profile', reference: profileImage.path },
+            { name: 'address', reference: addressImage.path },
+            { name: 'account', reference: accountImage.path }
+        ];
+        const response = await usersService.updateUser(user)
+        res.status(200).send({ status: 'Success', payload: response });
     }
-
-
-    // user.profile = req.file.path
-    // console.log(user)
-    // console.log('--------termina user')
 }
 
 export default new UserController()

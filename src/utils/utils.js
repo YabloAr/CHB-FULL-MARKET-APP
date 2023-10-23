@@ -1,4 +1,3 @@
-//Paso Uno, crear utils
 import envConfig from "../config/env.config.js";
 import { fileURLToPath } from "url";
 import { dirname } from "path";
@@ -91,42 +90,23 @@ const storage = multer.diskStorage({
 
         if (file.fieldname === 'profile') {
             destinationFolder = 'profiles';
-        } else if (file.fieldname === 'adress' || file.fieldname === 'account') {
+        } else if (file.fieldname === 'address' || file.fieldname === 'account') {
             destinationFolder = 'documents';
         } else if (file.fieldname === 'product') {
             destinationFolder = 'products';
         }
 
-        if (destinationFolder) {
-            // Store the file information in an array in the request object
-            if (!req.uploadInfo) {
-                req.uploadInfo = [];
-            }
-
-            req.uploadInfo.push({
-                credential: file.fieldname,
-                directory: __src + '/public/uploads/' + destinationFolder,
-                filename: req.session.user.email + '-' + file.fieldname + '-' + file.originalname
-            });
-
-            cb(null, req.uploadInfo[req.uploadInfo.length - 1].directory);
-        } else {
-            return cb(new Error('Invalid fieldname'));
-        }
+        cb(null, __src + '/public/uploads/' + destinationFolder);
     },
     filename: (req, file, cb) => {
-        // The filename is already set in the request object
-        cb(null, req.uploadInfo[req.uploadInfo.length - 1].filename);
+        cb(null, req.session.user.email + '-' + file.fieldname + '-' + file.originalname);
     }
 });
-
-
-
 
 export const uploader = multer({ storage: storage })
 
 export const userUpload = uploader.fields([
     { name: 'profile', maxCount: 1 },
-    { name: 'adress', maxCount: 1 },
+    { name: 'address', maxCount: 1 },
     { name: 'account', maxCount: 1 }
 ])
