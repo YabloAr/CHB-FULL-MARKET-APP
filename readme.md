@@ -23,6 +23,7 @@ Aprendiendo y codeando, a continuación una vista rápida! :
 - **nodemailer**: ¡Envía correos desde Node.js!
 - **swagger-jsdoc & swagger-ui-express**: /api/docs para encontrar la documentacion de mi proyecto.
 - **supertest** : Veamos si esto de aqui funciona...
+- **Multer** : Me ayuda con los uploads de los usuarios.
 
 ### Herramientas para Desarrollo
 

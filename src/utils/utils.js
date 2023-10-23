@@ -87,34 +87,40 @@ export const recoveryPassToken = (req, res, next) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        // Determine the destination folder based on the field name.
         let destinationFolder;
 
-        if (file) {
-            if (file.fieldname === 'profile') {
-                destinationFolder = 'profiles';
-            } else if (file.fieldname === 'adress') {
-                destinationFolder = 'documents';
-            } else if (file.fieldname === 'account') {
-                destinationFolder = 'documents';
-            } else if (file.fieldname === 'product') {
-                destinationFolder = 'products';
-            } else {
-                // Handle cases where the purpose is not recognized.
-                return cb(new Error('No file found'));
+        if (file.fieldname === 'profile') {
+            destinationFolder = 'profiles';
+        } else if (file.fieldname === 'adress' || file.fieldname === 'account') {
+            destinationFolder = 'documents';
+        } else if (file.fieldname === 'product') {
+            destinationFolder = 'products';
+        }
+
+        if (destinationFolder) {
+            // Store the file information in an array in the request object
+            if (!req.uploadInfo) {
+                req.uploadInfo = [];
             }
 
-            cb(null, __src + '/public/uploads/' + destinationFolder);
+            req.uploadInfo.push({
+                credential: file.fieldname,
+                directory: __src + '/public/uploads/' + destinationFolder,
+                filename: req.session.user.email + '-' + file.fieldname + '-' + file.originalname
+            });
+
+            cb(null, req.uploadInfo[req.uploadInfo.length - 1].directory);
         } else {
-            // Handle cases where the field doesn't have a corresponding purpose.
-            return cb(new Error('Purpose not specified for the file'));
+            return cb(new Error('Invalid fieldname'));
         }
     },
     filename: (req, file, cb) => {
-        const userName = req.session.user.email
-        cb(null, userName + '-' + file.fieldname + '-' + file.originalname);
+        // The filename is already set in the request object
+        cb(null, req.uploadInfo[req.uploadInfo.length - 1].filename);
     }
 });
+
+
 
 
 export const uploader = multer({ storage: storage })

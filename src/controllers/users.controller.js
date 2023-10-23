@@ -147,6 +147,7 @@ class UserController {
         const adressImage = req.files['adress'][0];
         const accountImage = req.files['account'][0];
 
+        console.log(req.uploadInfo)
         // You can now work with each image separately.
         // For example, you can save them to a database or file system.
 

@@ -40,7 +40,7 @@ router.get('/githubcallback', passport.authenticate('github', { failureRedirect:
     res.redirect('/');
 })
 
-router.get('/current', checkSession, checkAdmin, (req, res) => {
+router.get('/current', checkSession, (req, res) => {
     res.send({ status: "success", payload: req.session.user })
 
 })
