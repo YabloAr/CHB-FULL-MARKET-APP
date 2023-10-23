@@ -18,7 +18,7 @@ export const __src = dirname(__dirname)
 export const isValidPassword = (user, password) => bcrypt.compareSync(password, user.password);
 
 
-//--------------------------[GENERATE NEW CODE] - Genera un codigo random para el productDTO y el ticketDTO
+//--------------------------[GENERATE NEW CODE] Genera un codigo random para el productDTO y el ticketDTO
 
 export const generateNewCode = () => {
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -87,12 +87,35 @@ export const recoveryPassToken = (req, res, next) => {
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, __src + '/public/images')
+        // Determine the destination folder based on the field name.
+        let destinationFolder;
+
+        if (file) {
+            if (file.fieldname === 'profile') {
+                destinationFolder = 'profiles';
+            } else if (file.fieldname === 'adress') {
+                destinationFolder = 'documents';
+            } else if (file.fieldname === 'account') {
+                destinationFolder = 'documents';
+            } else if (file.fieldname === 'product') {
+                destinationFolder = 'products';
+            } else {
+                // Handle cases where the purpose is not recognized.
+                return cb(new Error('No file found'));
+            }
+
+            cb(null, __src + '/public/uploads/' + destinationFolder);
+        } else {
+            // Handle cases where the field doesn't have a corresponding purpose.
+            return cb(new Error('Purpose not specified for the file'));
+        }
     },
     filename: (req, file, cb) => {
-        cb(null, file.originalname)
+        const userName = req.session.user.email
+        cb(null, userName + '-' + file.fieldname + '-' + file.originalname);
     }
-})
+});
+
 
 export const uploader = multer({ storage: storage })
 

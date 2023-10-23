@@ -138,18 +138,14 @@ class UserController {
     }
 
     uploadCredentials = async (req, res) => {
-        if (!req.files || !req.files['profile'] || !req.files['adress'] || !req.files['account']) {
-            return res.status(400).send({ status: 'error', message: 'No se encontraron todos los archivos esperados' });
+        if (!req.files['profile'] || !req.files['adress'] || !req.files['account']) {
+            return res.status(400).send({ status: 'error', message: 'No se encontraron todos los archivos esperados o no se especificó el propósito.' });
         }
 
         // Access and process the uploaded files for each field.
         const profileImage = req.files['profile'][0];
         const adressImage = req.files['adress'][0];
         const accountImage = req.files['account'][0];
-
-        console.log(profileImage)
-        console.log(adressImage)
-        console.log(accountImage)
 
         // You can now work with each image separately.
         // For example, you can save them to a database or file system.
