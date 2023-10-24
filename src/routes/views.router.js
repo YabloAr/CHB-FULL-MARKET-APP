@@ -20,10 +20,12 @@ router.get('/', (req, res) => {
     const toProfile = 'http://localhost:8080/profile'
     const toChat = 'http://localhost:8080/chat'
     const toCurrent = 'http://localhost:8080/api/sessions/current'
-    const toAdmin = 'http://localhost:8080/admin'
+    const toAdminCrud = 'http://localhost:8080/admin'
     const toPurchase = 'http://localhost:8080/api/tickets/6500b2f27498919c55e6d7f8/purchase'
     const toMockingProducts = 'http://localhost:8080/mockingproducts'
-    res.render('landing', { toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdmin, toPurchase, toMockingProducts })
+    const toCart = 'http://localhost:8080/api/carts/6500b2f27498919c55e6d7f8'
+    const toUsers = 'http://localhost:8080/users'
+    res.render('landing', { toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toPurchase, toMockingProducts, toCart, toUsers })
 })
 //-------------------------------USER UTILITIES VIEWS
 router.get('/register', (req, res) => {
@@ -128,7 +130,13 @@ router.get('/chat', checkSession, checkUser, (req, res) => {
 
 //-------------------------------ADMIN
 router.get('/admin', checkSession, checkAdmin, async (req, res) => {
-    res.render('admin')
+    res.render('adminCrud')
+})
+
+router.get('/users', checkSession, checkAdmin, async (req, res) => {
+    const users = await usersService.getAll()
+    const current = req.session.user
+    res.render('adminUsers', { users, current })
 })
 
 router.get('/carts/:cid', async (req, res) => {
@@ -144,7 +152,7 @@ router.get('/carts/:cid', async (req, res) => {
         ...productData.product.toObject(),
         quantity: productData.quantity
     }));
-    res.render('cart', { cid, products })
+    res.render('adminCart', { cid, products })
 })
 
 router.get('/mockingproducts', async (req, res) => {

@@ -1,0 +1,24 @@
+<h2>USERS VIEW</h2>
+<a href="http://localhost:8080/"> <button> Home </button></a>
+<h3>Welcome {{current.first_name}} {{current.last_name}}</h3>
+<button id="deleteInactiveUsers" style="width: 120px" data-user="{{current._id}}">Delete Inactive User (no anda)</button>
+<button style="width: 120px" id="logout">Logout </button>
+{{#each users}}
+  <section>
+    <div>
+      <h4>{{this.first_name}} {{this.last_name}}</h4>
+      <h3>{{this.email}}</h3>
+      <h3>{{this.role}}</h3>
+
+      <a href="http://localhost:8080/api/users/premium/{{this._id}}">
+        <button id="changeRole" style="width: 120px" type="submit">Change Role</button>
+      </a>
+
+      <button id="deleteUser" style="width: 120px" data-user="{{this._id}}">Delete User
+      </button>
+
+    </div>
+  </section>
+{{/each}}
+<script src="/js/deleteUser.js"></script>
+<script src="/js/logout.js"></script>

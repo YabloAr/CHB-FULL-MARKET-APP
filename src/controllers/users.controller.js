@@ -9,7 +9,7 @@ class UserController {
     getAll = async (req, res) => {
         try {
             let allUsers = await usersService.getAll()
-            res.status(200).send({ total: allUsers.length, payload: allUsers })
+            res.status(200).send(allUsers)
         } catch (error) {
             res.status(400).send({ status: 'Error 400', message: error.message });
         }
@@ -53,10 +53,11 @@ class UserController {
     changeRole = async (req, res) => {
         const uid = req.params.uid
         const user = await usersService.getUserById(uid)
-        if (user.documents.length === 2) {
+        if (user.documents.length === 3) {
             const result = await usersService.changeRole(uid)
+            res.status(200).send({ payload: result });
         }
-        res.status(200).send({ payload: result });
+        console.log('no paso')
     }
 
     deleteUser = async (req, res) => {

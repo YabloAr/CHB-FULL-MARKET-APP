@@ -1,10 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-
-
     //NO ESCENCIAL
-
-
 
     const addToCartButtons = document.querySelectorAll('#addToCart')
     // Add a click event listener to each button

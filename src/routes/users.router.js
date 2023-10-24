@@ -11,7 +11,7 @@ router.get('/:uid', UsersController.getUserById)
 router.post('/generate-recovery-token', UsersController.recoveryPassToken)
 router.post('/reset-password', UsersController.resetPassword)
 router.post('/', UsersController.createUser)
-router.put('/premium/:uid', UsersController.changeRole)
+router.get('/premium/:uid', UsersController.changeRole)
 router.delete('/:uid', UsersController.deleteUser)
 
 //MULTER
