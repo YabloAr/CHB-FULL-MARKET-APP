@@ -36,7 +36,6 @@ class CartsController {
             const cid = req.params.cid
             const pid = req.params.pid
             const user = req.session.user
-
             const result = await CartsService.addProductToCart(cid, pid, user)
             res.status(200).send({ payload: result });
         } catch (error) { throw error }

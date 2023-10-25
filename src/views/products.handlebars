@@ -1,18 +1,24 @@
 <h2>PRODUCTS VIEW</h2>
 <a href='http://localhost:8080/'> <button> Home </button></a>
-<h3>Welcome {{user.name}}</h3>
+<h3>Welcome {{currentUser.fullname}}, {{currentUser.email}}. ROLE: {{currentUser.role}}</h3>
 <button style="width: 120px" id="logout">Logout </button>
+To your cart:
+    <a href="http://localhost:8080/api/carts/{{currentUser.cartId}}"><img src="https://res.cloudinary.com/dfrvbm0im/image/upload/v1698252664/cart_r4bnl9.png" alt="toCart" style="max-width: 100px" /></a>
 {{#each products}}
-<section>
-  <div>
-  <h5>{{title}}</h5>
-  <p>{{description}}</p>
-  <h5>{{price}}</h5>
-  <button id="addToCart" style="width: 120px" type="submit" data-product-id="{{_id}}" <!-- Add the product's ID as a
-    data attribute -->
-    >Add to cart</button>
+<div class='cardsContainer'></div>
+  <div class="card">
+  <h3>Title: {{title}}</h3>
+  <p>Description: {{description}}</p>
+  <h4>Price: {{price}}</h4>
+  <h4>Stock: {{stock}}</h4>
+
+  <button id="addToCart" style="width: 120px" type="submit" 
+  data-pid="{{_id}}" 
+  data-uid="{{../currentUser._id}}" 
+  data-cid="{{../currentUser.cartId}}"
+  >Add to cart</button>
     </div>
-</section>
+
 {{/each}}
 {{! validacion de queries para el handlebar, limit SIEMPRE llega, porque lo valida el router}}
 <div style="flex-direction: row;justify-content: space-around">

@@ -25,13 +25,6 @@ class CartsService {
 
     async addProductToCart(cid, pid, user) {
         try {
-            // const foundProduct = ProductsDAO.getProductById(pid)
-
-            // if (foundProduct.owner === user.email){
-            //     return tomatelasNoPodes
-            // }
-
-
             return await CartsDAO.addProductToCart(cid, pid, user)
         } catch (error) { throw error }
     }

@@ -53,8 +53,6 @@ passport.use('github', new gitHubService({
     callbackURL: envConfig.github.CALLBACK_URL
 }, async (accessToken, refreshToken, profile, done) => {
     try {
-        // console.log('passport strat GitHubService profile is:')
-        // console.log(profile)
         let exists = await userModel.findOne({ email: profile.emails[0].value })
         if (!exists) {
             let userRegisterData = {
@@ -68,7 +66,7 @@ passport.use('github', new gitHubService({
             let result = await userModel.create(newUser)
             done(null, result)
         } else {
-            done(null, user)
+            done(null, exists)
         }
     } catch (error) {
         return done(error)

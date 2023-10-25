@@ -1,31 +1,44 @@
-document.addEventListener('DOMContentLoaded', () => {
 
-    //NO ESCENCIAL
+const addButton = document.querySelectorAll("#addToCart");
 
-    const addToCartButtons = document.querySelectorAll('#addToCart')
-    // Add a click event listener to each button
-    addToCartButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            // Get the product's ID from a data attribute on the button
-            const productId = button.dataset.productId;
-
-            // Make a fetch request to add the product to the cart using the productId
-            fetch(`http://localhost:8080/api/tickets/${productId}/purchase`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
+addButton.forEach(button => {
+    button.addEventListener("click", () => {
+        const pid = button.dataset.pid;
+        const cid = button.dataset.cid;
+        const uid = button.dataset.uid
+        fetch(`http://localhost:8080/api/carts/${cid}/products/${pid}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                // Handle the response, e.g., display a success message
+                console.log("Producto agregado al carrito");
+                console.log("Response is:", data);
+                if (data.payload.status === 200) {
+                    Toastify({
+                        text: "This is a toast",
+                        duration: 3000,
+                        destination: `http://localhost:8080/api/carts/${cid}`,
+                        newWindow: false,
+                        close: true,
+                        gravity: "bottom", // `top` or `bottom`
+                        position: "right", // `left`, `center` or `right`
+                        stopOnFocus: true, // Prevents dismissing of toast on hover
+                        style: {
+                            background: "linear-gradient(to right, #00b09b, #96c93d)",
+                        },
+                        onClick: function () { } // Callback after click
+                    }).showToast();
+                } else {
+                    alert('Something went wrong with the fetch, oh the stench of failure...' + JSON.stringify(data.payload.message))
                 }
             })
-                .then(response => response.json())
-                .then(data => {
-                    // Handle the response, e.g., display a success message
-                    console.log('Response is:', data);
-                })
-                .catch(error => {
-                    // Handle any errors
-                    console.error('Error adding product to cart:', error);
-                });
-        });
+            .catch((error) => {
+                // Handle any errors
+                console.error("Fetch catch, Error al agregar al carrito:", error);
+            });
     });
-})
-
+});

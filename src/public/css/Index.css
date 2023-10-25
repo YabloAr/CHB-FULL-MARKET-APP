@@ -55,6 +55,21 @@ nav {
     justify-content: space-around;
 }
 
+.cardsContainer {
+    justify-content: center;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+}
+
+.card {
+    padding: 10px;
+    width: 30%;
+    background-color: #588956;
+    border: 1px solid #333;
+}
+
 button {
     padding: 10px 20px;
     margin: 5px;

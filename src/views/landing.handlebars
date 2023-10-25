@@ -1,39 +1,54 @@
 <section>
   <div>
     <h4>“Excuse me. I’d like to “ass” you a few questions.” – Ace Ventura</h4>
-    <a href={{toPurchase}}> <button> Purchase your carrito </button></a>
+    {{#if currentUser}}
+      <div class="infoContainer">
+        <h2>You are logged in as {{currentUser.fullname}}, ROLE: {{currentUser.role}}</h2>
+        <button style="width: 120px" id="logout">Logout </button>
+      </div>
+    {{else}}
+      <div class="cardsContainer">
+        <div class="infoContainer">
+          <h3>Start here mate'</h3>
+          <div class="linksContainer">
+            <a href={{toLogin}}> <button> Login </button></a>
+            <a href={{toRegister}}> <button> Register </button></a>
+          </div>
+        </div>
+      </div>
+    {{/if}}
     <img src="https://wallpaperaccess.com/full/2162194.jpg" alt="" style="max-width: 500px" />
   </div>
   <nav>
     <div class="infoContainer">
       <div class="linksContainer">
-        <h5>Start here mate'</h5>
-        <a href={{toLogin}}> <button> Login </button></a>
-        <a href={{toRegister}}> <button> Register </button></a>
+        <h4>Cart Actions:</h4>
+        <a href={{toPurchase}}> <button> Purchase your carrito </button></a>
+        <a href={{toCart}}> <button> View Your Cart </button></a>
       </div>
     </div>
     <div class="infoContainer">
       <div class="linksContainer">
-        <a href={{toMockingProducts}}> <button> Mock This! </button></a>
-        <h6>Users:</h6>
+        <h4>Users:</h4>
         <a href={{toProducts}}> <button> View Products </button></a>
         <a href={{toChat}}> <button> View Chat </button></a>
         <a href={{toProfile}}> <button> View Safe DTO Profile </button></a>
         <a href={{toCarts}}> <button> View All Carts </button></a>
-        <h6>Admin:</h6>
+        <h4>Admin:</h4>
         <a href={{toAdminCrud}}> <button> Admin Panel</button></a>
         <a href={{toCurrent}}> <button> Current Session </button></a>
-        <a href={{toCart}}> <button> View Individual Cart </button></a>
         <a href={{toUsers}}> <button> All Users</button></a>
+        <a href={{toMockingProducts}}> <button> Mock This! </button></a>
 
       </div>
     </div>
     <div class="infoContainer">
       <div class="linksContainer">
-        <h5>Did i tell you about the time that i...</h5>
+        <h4>Did i tell you about the time that i...</h4>
         <a href="https://www.youtube.com/watch?v=BF16eA7sdqo"> <button> entered the rhino realm?</button></a>
         <a href="https://www.youtube.com/watch?v=dfSoUYr4lmQ"> <button> almost dodge a spear? </button></a>
       </div>
     </div>
   </nav>
 </section>
+<script src="/js/logout.js"></script>
