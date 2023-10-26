@@ -33,13 +33,12 @@ router.get('/', checkSession, async (req, res) => {
     const toChat = 'http://localhost:8080/chat'
     const toCurrent = 'http://localhost:8080/api/sessions/current'
     const toAdminCrud = 'http://localhost:8080/admin'
-    const toPurchase = 'http://localhost:8080/api/tickets/6500b2f27498919c55e6d7f8/purchase'
     const toMockingProducts = 'http://localhost:8080/mockingproducts'
     const toUsers = 'http://localhost:8080/users'
     const toCart = `http://localhost:8080/carts/${cartId}`
     const toTickets = 'http://localhost:8080/api/tickets'
 
-    res.render('pageLanding', { currentUser, toTickets, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toPurchase, toMockingProducts, toCart, toUsers })
+    res.render('pageLanding', { currentUser, toTickets, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toMockingProducts, toCart, toUsers })
 })
 
 
