@@ -7,6 +7,8 @@ import userModel from '../models/schemas/users.schema.js'
 const router = Router()
 
 //-------api/sessions
+
+//---------------------register and login
 router.post('/register', passport.authenticate('register', { failureRedirect: '/failregister' }), async (req, res) => {
     res.send({ status: 'success', message: 'User registered' })
 })

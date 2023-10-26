@@ -91,7 +91,7 @@ class UsersDAO {
             if (result.deletedCount === 0) {
                 return null
             }
-            return { status: 'Success.', payload: response };
+            return { status: 200, payload: response };
         } catch (error) {
             throw error;
         }

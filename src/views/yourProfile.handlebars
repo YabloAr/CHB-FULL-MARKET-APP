@@ -1,20 +1,14 @@
-<section>´
+<section>
   <div class="linksContainer">
-    <div class="infoContainer">
-      <ul>
-        <h4>Safe User DTO Info</h4>
-        <p>Fullname: {{safeUserData.fullName}}</p>
-        <p>Email: {{safeUserData.email}}</p>
-        <p>Role: {{safeUserData.role}}</p>
-      </ul>
-    </div>
-    <div class="infoContainer">
-      <ul>
-        <h5>Extra Data</h5>
-        <p>Id: {{safeUserData._id}}</p>
-      </ul>
-    </div>
-    <div class="infoContainer">
+
+    <ul>
+      <h4>Safe User DTO Info</h4>
+      <p>Fullname: {{safeUserData.fullName}}</p>
+      <p>Email: {{safeUserData.email}}</p>
+      <p>Role: {{safeUserData.role}}</p>
+    </ul>
+
+    <div class="cardsContainer">
       <h4>Upload Credential Files</h4>
       <form action="/api/users/{{safeUserData._id}}/documents" method="post" enctype="multipart/form-data">
         <ul>

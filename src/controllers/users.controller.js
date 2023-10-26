@@ -57,7 +57,7 @@ class UserController {
             const result = await usersService.changeRole(uid)
             res.status(200).send({ payload: result });
         }
-        console.log('no paso')
+        res.status(403).send({ status: 403, message: 'Not allowed. Credentials files not yet uploaded.' });
     }
 
     deleteUser = async (req, res) => {

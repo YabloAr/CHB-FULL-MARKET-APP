@@ -36,38 +36,11 @@ router.get('/', checkSession, async (req, res) => {
     const toPurchase = 'http://localhost:8080/api/tickets/6500b2f27498919c55e6d7f8/purchase'
     const toMockingProducts = 'http://localhost:8080/mockingproducts'
     const toUsers = 'http://localhost:8080/users'
-    const toCart = `http://localhost:8080/api/carts/${cartId}`
+    const toCart = `http://localhost:8080/carts/${cartId}`
 
-    res.render('landing', { currentUser, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toPurchase, toMockingProducts, toCart, toUsers })
-})
-//-------------------------------USER UTILITIES VIEWS
-router.get('/register', (req, res) => {
-    res.render('register')
+    res.render('pageLanding', { currentUser, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toPurchase, toMockingProducts, toCart, toUsers })
 })
 
-router.get('/login', (req, res) => {
-    const session = { current: false }
-    if (req.session.user) {
-        session.current = true
-        session.name = req.session.user.first_name
-    }
-    res.render('login', { session })
-})
-
-router.get('/password-recovery-request', (req, res) => {
-    const session = { current: false }
-    if (req.session.user) {
-        session.current = true
-        session.name = req.session.user.first_name
-    }
-    res.render('password-recovery-request', { session })
-})
-
-router.get('/reset-password/:token', recoveryPassToken, (req, res) => {
-    const { userEmail, currentPassword } = req.tokenData;
-
-    res.render('reset-password', { userEmail, currentPassword })
-})
 
 //-------------------------------EVERYONE
 router.get('/products', checkSession, async (req, res) => {
@@ -116,40 +89,41 @@ router.get('/products', checkSession, async (req, res) => {
         const nextPage = hasNextPage ? page + 1 : null;
         const prevPage = hasPrevPage ? page - 1 : null;
 
-        res.render('products', { products, hasPrevPage, hasNextPage, prevPage, nextPage, limit, sort, category, currentUser })
+        res.render('pageProducts', { products, hasPrevPage, hasNextPage, prevPage, nextPage, limit, sort, category, currentUser })
 
     } catch (error) { res.status(500).send({ status: 'error', error: error.message }); }
 })
 
-router.get('/carts', checkSession, async (req, res) => {
-    let response = await CartDAO.getAll()
-    const { _id, first_name, last_name, role } = await usersService.getUserByEmail(req.session.user.email)
-    const currentUser = {
-        fullname: first_name + ' ' + last_name, _id, role
-    }
-    let carts = response.carts
+router.get('/carts/:cid', checkSession, async (req, res) => {
+    const cid = req.params.cid
+    const thisCart = await CartDAO.getCartById(cid)
 
-    res.render('carts', { carts, currentUser })
+    const user = await usersService.getUserByEmail(req.session.user.email)
+    if (user.cartId.toString() !== cid) return res.status(403).send({ status: 403, message: 'This is not your carrito bitch.', cartId: user.cartId, cid })
+
+    const { _id, first_name, last_name, email, role, cartId } = user
+    const currentUser = {
+        fullname: first_name + " " + last_name,
+        email,
+        role,
+        _id,
+        cartId
+    }
+
+    const products = thisCart.products.map(productData => ({
+        ...productData.product.toObject(),
+        quantity: productData.quantity
+    }));
+
+
+    res.render('yourCart', { currentUser, products })
 })
 
 router.get('/profile', checkSession, async (req, res) => {
     const safeUserData = new SafeUsersDTO(req.session.user)
     const user = await usersService.getUserByEmail(req.session.user.email)
     safeUserData._id = user._id.toString()
-    res.render('profile', { safeUserData })
-})
-
-//-------------------------------USERS
-router.get('/chat', checkSession, checkUser, (req, res) => {
-    if (!req.session.user) {
-        res.render('failedlogin')
-    } else {
-        res.render('chat', {
-            style: 'index.css',
-            userName: req.session.user.first_name,
-            userEmail: req.session.user.email,
-        })
-    }
+    res.render('yourProfile', { safeUserData })
 })
 
 
@@ -164,21 +138,18 @@ router.get('/users', checkSession, checkAdmin, async (req, res) => {
     res.render('adminUsers', { users, current })
 })
 
-router.get('/carts/:cid', async (req, res) => {
-    if (!req.session.user) {
-        return res.render('failedlogin')
+router.get('/carts', checkSession, checkAdmin, async (req, res) => {
+    let response = await CartDAO.getAll()
+    const { _id, first_name, last_name, role } = await usersService.getUserByEmail(req.session.user.email)
+    const currentUser = {
+        fullname: first_name + ' ' + last_name, _id, role
     }
-    const cid = req.params.cid
-    const thisCart = await CartDAO.getCartById(cid)
+    let carts = response.carts
 
-    const products = thisCart.products.map(productData => ({
-        ...productData.product.toObject(),
-        quantity: productData.quantity
-    }));
-    res.render('adminCart', { cid, products })
+    res.render('adminCarts', { carts, currentUser })
 })
 
-router.get('/mockingproducts', async (req, res) => {
+router.get('/mockingproducts', checkSession, checkAdmin, async (req, res) => {
     try {
         let randomProducts = await createProducts(100)
         res.send({ message: 'Mock products x100 created with faker and falso.', payload: randomProducts })
@@ -193,7 +164,7 @@ router.get('/mockingproducts', async (req, res) => {
     }
 })
 
-router.get("/test-logger", (req, res) => {
+router.get("/test-logger", checkSession, checkAdmin, (req, res) => {
     logger.error("soy un error");
     logger.warn("soy un warn");
     logger.info("soy un info");
@@ -202,6 +173,50 @@ router.get("/test-logger", (req, res) => {
     logger.debug("soy un debug");
     res.send("probando loggers");
 });
+
+
+//-------------------------------USER UTILITIES VIEWS
+router.get('/register', (req, res) => {
+    res.render('userRegister')
+})
+
+router.get('/login', (req, res) => {
+    const session = { current: false }
+    if (req.session.user) {
+        session.current = true
+        session.name = req.session.user.first_name
+    }
+    res.render('userLogin', { session })
+})
+
+router.get('/password-recovery-request', (req, res) => {
+    const session = { current: false }
+    if (req.session.user) {
+        session.current = true
+        session.name = req.session.user.first_name
+    }
+    res.render('userPassRecoveryRequest', { session })
+})
+
+router.get('/reset-password/:token', recoveryPassToken, (req, res) => {
+    const { userEmail, currentPassword } = req.tokenData;
+
+    res.render('userResetPassword', { userEmail, currentPassword })
+})
+
+
+//-------------------------------USERS CHAT
+router.get('/chat', checkSession, checkUser, (req, res) => {
+    if (!req.session.user) {
+        res.render('pageFailedLogin')
+    } else {
+        res.render('userChat', {
+            style: 'index.css',
+            userName: req.session.user.first_name,
+            userEmail: req.session.user.email,
+        })
+    }
+})
 
 
 

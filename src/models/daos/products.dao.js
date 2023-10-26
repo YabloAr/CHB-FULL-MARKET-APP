@@ -55,6 +55,11 @@ class ProductsDAO {
         }
     }
 
+    //UPDATE STOCK AT PURCHASE
+    updateStockAtPurchase = async () => {
+        console.log('entro update stock')
+    }
+
     //DELETE PRODUCT
     deleteProduct = async (pid, user) => {
         try {

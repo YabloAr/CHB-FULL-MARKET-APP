@@ -1,0 +1,23 @@
+<div class="cardsContainer">
+  <div class="card">
+    <p>You are logged in as {{currentUser.fullname}}, ROLE: {{currentUser.role}}</p>
+  </div>
+</div>
+<a href="http://localhost:8080/"> <button> Home </button></a>
+<button style="width: 120px" id="logout">Logout </button>
+<div class="card">
+  <h2> YOUR CART: {{currentUser.cartId}} </h2>
+  {{#each products}}
+    <div>
+      <ul>
+        <li>Product Title: {{title}}</li>
+        <li>Price: {{price}}</li>
+        <li>Quantity: {{quantity}}</li>
+        </button>
+      </ul>
+    </div>
+  {{/each}}
+<button id="purchaseCart" style="width: 120px" data-purchasecartid="{{currentUser.cartId}}">Purchase</button>
+</div>
+<script src="/js/purchaseCart.js"></script>
+<script src="/js/logout.js"></script>
