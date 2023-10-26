@@ -1,15 +1,15 @@
+//CORE
 import { Router } from "express";
+import { logger } from '../utils/logger.js'
+import { recoveryPassToken } from "../utils/utils.js";
+import { checkAdmin, checkSession, checkUser } from "../middlewares/auth.middleware.js";
+
+//Functional
 import CartDAO from '../models/daos/carts.dao.js'
 import productsModel from "../models/schemas/products.schema.js";
 import SafeUsersDTO from '../models/DTO/safeUser.dto.js';
-import { checkAdmin, checkSession, checkUser } from "../middlewares/auth.middleware.js";
 import createProducts from "../mocking/mockingProducts.js";
-import { logger } from '../utils/logger.js'
-import { recoveryPassToken } from "../utils/utils.js";
-import userDto from "../models/DTO/user.dto.js";
 import usersService from "../service/users.service.js";
-import usersController from '../controllers/users.controller.js'
-import cartsService from "../service/carts.service.js";
 
 const router = Router()
 
@@ -37,8 +37,9 @@ router.get('/', checkSession, async (req, res) => {
     const toMockingProducts = 'http://localhost:8080/mockingproducts'
     const toUsers = 'http://localhost:8080/users'
     const toCart = `http://localhost:8080/carts/${cartId}`
+    const toTickets = 'http://localhost:8080/api/tickets'
 
-    res.render('pageLanding', { currentUser, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toPurchase, toMockingProducts, toCart, toUsers })
+    res.render('pageLanding', { currentUser, toTickets, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toPurchase, toMockingProducts, toCart, toUsers })
 })
 
 
@@ -154,13 +155,8 @@ router.get('/mockingproducts', checkSession, checkAdmin, async (req, res) => {
         let randomProducts = await createProducts(100)
         res.send({ message: 'Mock products x100 created with faker and falso.', payload: randomProducts })
     } catch (error) {
-
-        throw new Error(error.message)
-        //     name: "mocking-products error",
-        //     error: error,
-        //     message: error.message,
-        //     code: EError.MOCKING_ERROR
-        // })
+        console.log('Mock catch error')
+        throw error.message
     }
 })
 

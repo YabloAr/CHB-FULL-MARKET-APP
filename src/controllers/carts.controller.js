@@ -84,20 +84,6 @@ class CartsController {
 
         } catch (error) { throw error }
     }
-    //--------------------------------------------TICKETS
-    createTicket = async (req, res) => {
-        try {
-            console.log('ticket controller')
-            const cid = req.params.cid
-            const user = req.session.user
-            const response = await ticketsService.createTicket(user, cid)
-            res.status(200).json(response)
-
-        } catch (error) {
-            throw error
-        }
-    }
-
 }
 
 export default new CartsController()

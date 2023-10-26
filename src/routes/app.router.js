@@ -6,7 +6,6 @@ import sessionsRouter from './sessions.router.js'
 import viewsRouter from './views.router.js'
 import messageRouter from './message.router.js'
 import ticketsRouter from './tickets.router.js'
-import createProducts from '../mocking/mockingProducts.js'
 import { checkAdmin, checkSession } from '../middlewares/auth.middleware.js'
 
 const router = Router()
@@ -19,7 +18,7 @@ router.use('/api/sessions', sessionsRouter) //sin service ni controller
 router.use('/api/users', usersRouter)
 router.use('/api/tickets', checkSession, ticketsRouter)
 
-//este comodin me jode la landing
+//este comodin me le quita todo el estilo a la app, nose porque y gpt tampoco sabe.
 // router.get('*', async (req, res) => {
 //     res.status(404).send("URL no valida");
 // })

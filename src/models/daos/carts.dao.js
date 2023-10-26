@@ -37,7 +37,7 @@ class CartsDAO {
 
             let thisProduct = await productModel.findById(pid)
             if (!thisProduct) return { status: 500, message: 'Product doesnt exist in db, check id.' }
-            if (user.email || user.role === thisProduct.owner) return { status: 401, message: 'This product owner is you! You cant buy it! sod off!' }
+            if (user.role === thisProduct.owner || user.email === thisProduct.owner) return { status: 401, message: 'This product owner is you! You cant buy it! sod off!' }
 
             const productIndex = await thisCart.products.findIndex((item) => item.product._id.toString() === pid);
             if (productIndex !== -1) {

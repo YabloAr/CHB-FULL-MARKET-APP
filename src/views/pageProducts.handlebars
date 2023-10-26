@@ -3,7 +3,7 @@
 <h3>Welcome {{currentUser.fullname}}, {{currentUser.email}}. ROLE: {{currentUser.role}}</h3>
 <button style="width: 120px" id="logout">Logout </button>
 To your cart:
-    <a href="http://localhost:8080/api/carts/{{currentUser.cartId}}"><img src="https://res.cloudinary.com/dfrvbm0im/image/upload/v1698252664/cart_r4bnl9.png" alt="toCart" style="max-width: 100px" /></a>
+    <a href="http://localhost:8080/carts/{{currentUser.cartId}}"><img src="https://res.cloudinary.com/dfrvbm0im/image/upload/v1698252664/cart_r4bnl9.png" alt="toCart" style="max-width: 100px" /></a>
 {{#each products}}
 <div class='cardsContainer'></div>
   <div class="card">
@@ -11,6 +11,7 @@ To your cart:
   <p>Description: {{description}}</p>
   <h4>Price: {{price}}</h4>
   <h4>Stock: {{stock}}</h4>
+  <h4>Owner: {{owner}}</h4>
 
   <button id="addToCart" style="width: 120px" type="submit" 
   data-pid="{{_id}}" 

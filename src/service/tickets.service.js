@@ -1,7 +1,7 @@
-import productsService from "./products.service.js";
 import cartsService from "./carts.service.js";
 import TicketDTO from "../models/DTO/ticket.dto.js";
 import ticketsDao from "../models/daos/tickets.dao.js"
+import productsDao from "../models/daos/products.dao.js";
 
 class TicketService {
 
@@ -12,25 +12,28 @@ class TicketService {
 
     createTicket = async (user, cid) => {
         try {
-            if (user.cartId !== cid) return { error: 'Cart Id and cid doesnt match' };
             const thisCart = await cartsService.getCartById(cid);
-            if (!thisCart) return { error: 'Cart not found not found' };
+            if (!thisCart) return { error: 'Cart id not found.' };
+            if (thisCart.products.length === 0) return { error: 'Cart its empty' };
 
             //--------------Inicia ciclo FOR 
             const cartFilterOutStock = [];
             const productsForTicket = [];
             let totalPrice = 0;
             for (const { product, quantity } of thisCart.products) {
+
+                //Si no hay stock
                 if (product.stock < quantity) {
                     cartFilterOutStock.push({
                         product: product,
                         quantity: quantity
                     })
                 } else {
+                    //Si hay stock
                     const remainingStock = product.stock - quantity;
                     totalPrice += product.price * quantity;
 
-                    await productsService.updateProduct(product._id, { stock: remainingStock })
+                    await productsDao.updateProduct(product._id, { stock: remainingStock })
 
                     productsForTicket.push({
                         product: {
@@ -61,9 +64,10 @@ class TicketService {
 
                 //No escencial
                 const info = {
-                    updatedCart: updatedCart,
+                    status: 200,
                     purchasedItems: productsForTicket,
-                    ticket: ticketResponse
+                    ticket: ticketResponse,
+                    remainingCart: updatedCart
                 };
                 return info;
             }

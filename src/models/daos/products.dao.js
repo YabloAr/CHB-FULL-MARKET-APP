@@ -38,26 +38,25 @@ class ProductsDAO {
         }
     }
 
-    //UPDATE PRODUCT
-    updateProduct = async (pid, newData, user) => {
+    //NEW PRODUCT
+    createMany = async (arrayOfProducts) => {
         try {
-            let foundProduct = await productsModel.findById(pid)
-            if (!foundProduct) return null
-
-            if (user.role === 'admin' || user.email === foundProduct.owner) {
-                const updatedProduct = await productsModel.findByIdAndUpdate(pid, newData, { new: true });
-                return updatedProduct;
-            } else {
-                return { message: 'You are not an admin nor the owner of the product, forbidden.' };
-            }
+            // await productsModel.deleteMany({});
+            const response = await productsModel.insertMany(arrayOfProducts)
+            return { status: 200, message: `Product added.`, payload: response }
         } catch (error) {
             throw error;
         }
     }
 
-    //UPDATE STOCK AT PURCHASE
-    updateStockAtPurchase = async () => {
-        console.log('entro update stock')
+    //UPDATE PRODUCT
+    updateProduct = async (pid, newData, user) => {
+        try {
+            const updatedProduct = await productsModel.findByIdAndUpdate(pid, newData, { new: true });
+            return updatedProduct;
+        } catch (error) {
+            throw error;
+        }
     }
 
     //DELETE PRODUCT
@@ -77,7 +76,6 @@ class ProductsDAO {
 
         } catch (error) { return { status: 'Error', message: error.message } }
     };
-
 
     //generateNewCode 7 digits
     generateNewCode = async () => {

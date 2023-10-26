@@ -15,11 +15,12 @@ addButton.forEach(button => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response, e.g., display a success message
+                console.log(data)
                 if (data.payload.status === 200) {
                     Toastify({
                         text: "Product added to cart.",
                         duration: 3000,
-                        destination: `http://localhost:8080/api/carts/${cid}`,
+                        destination: `http://localhost:8080/carts/${cid}`,
                         newWindow: false,
                         close: true,
                         gravity: "bottom", // `top` or `bottom`

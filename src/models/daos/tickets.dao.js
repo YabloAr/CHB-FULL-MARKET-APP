@@ -17,8 +17,6 @@ class TicketsDAO {
     createTicket = async (ticket) => {
         try {
             const response = await ticketsModel.create(ticket)
-            console.log('-------TicketsDAO: new ticket created in db:')
-            console.log(response)
             return { status: 200, message: `Ticket created.`, payload: response }
         } catch (error) {
             throw error;

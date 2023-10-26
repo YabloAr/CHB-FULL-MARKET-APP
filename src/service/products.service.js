@@ -1,4 +1,5 @@
 import { getDAOS } from '../models/daos/index.dao.js'
+import productsDao from '../models/daos/products.dao.js'
 
 const { ProductsDAO } = getDAOS()
 
@@ -29,9 +30,17 @@ class ProductsService {
 
     async updateProduct(pid, newData, user) {
         try {
-            const response = await ProductsDAO.updateProduct(pid, newData, user)
-            if (response === null) return { status: 'error', message: 'Product not found' }
-            return response
+
+            let foundProduct = await productsDao.getProductById(pid)
+            if (!foundProduct) return { status: 'error', message: 'Product not found' }
+
+            if (user.role === 'admin' || user.email === foundProduct.owner) {
+                const response = await ProductsDAO.updateProduct(pid, newData, user)
+                return response
+            } else {
+                return { message: 'You are not an admin nor the owner of the product, forbidden.' };
+            }
+
         } catch (error) { throw error }
     }
 

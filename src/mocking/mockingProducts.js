@@ -1,11 +1,14 @@
 import { faker } from '@faker-js/faker'
-import { randProductCategory } from '@ngneat/falso';
+import { randProductCategory, rand } from '@ngneat/falso';
+import productModel from '../models/schemas/products.schema.js';
+import productsDao from '../models/daos/products.dao.js';
 
 const createProducts = async (quantity) => {
     const products = []
     for (let i = 0; i < quantity; i++) {
+        const ownerOpts = ['admin', 'hmsalomon86@gmail.com', 'lulu@tattoo.com'];
         const randProduct = {
-            _id: faker.database.mongodbObjectId(),
+            owner: rand(ownerOpts),
             title: faker.commerce.productName(),
             category: randProductCategory(),
             description: faker.commerce.productDescription(),
@@ -16,7 +19,10 @@ const createProducts = async (quantity) => {
         }
         products.push(randProduct)
     }
+
+    // const result = await productsDao.createMany(products)
     return products
+
 }
 
 export default createProducts
