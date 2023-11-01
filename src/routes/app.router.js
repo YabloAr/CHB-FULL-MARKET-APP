@@ -18,9 +18,4 @@ router.use('/api/sessions', sessionsRouter) //sin service ni controller
 router.use('/api/users', usersRouter)
 router.use('/api/tickets', checkSession, ticketsRouter)
 
-//este comodin me le quita todo el estilo a la app, nose porque y gpt tampoco sabe.
-// router.get('*', async (req, res) => {
-//     res.status(404).send("URL no valida");
-// })
-
 export default router

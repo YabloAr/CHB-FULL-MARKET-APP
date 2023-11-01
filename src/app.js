@@ -54,6 +54,7 @@ app.use(session({
 //ROUTER con Brotli- Manejador de rutas de toda el servidor
 app.use(compression({ brotli: { enabled: true, zlib: {} } })); //Config de uso global para brotli
 app.use("/", appRouter)
+// app.use("*", (req, res) => { res.send("No existe esta direccion") })
 
 //HANDLEBARS - Indicamos el uso de handlebars
 app.engine('handlebars', handlebars.engine()) //habilitamos el uso del motor de plantillas en el servidor.
