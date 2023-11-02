@@ -97,6 +97,23 @@ class UsersDAO {
         }
     }
 
+    deleteInactive = async () => {
+        try {
+            const thresholdDate = new Date();
+            thresholdDate.setDate(thresholdDate.getDay() - 2);
+
+            const result = await userModel.deleteMany({
+                last_connection: { $lt: thresholdDate },
+                role: { $ne: "admin" }
+            });
+
+            const message = result.deletedCount > 0 ? `${result.deletedCount} inactive users deleted` : `No inactive users to delete`
+            return { message }
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 
 

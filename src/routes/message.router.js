@@ -9,7 +9,6 @@ const router = Router()
 router.get('/', async (req, res) => {
     try {
         let allMessages = await MessagesDAO.getAllMessages()
-        console.log(allMessages)
         res.send(allMessages)
     } catch (error) { return { status: 500, error: `Message Router Get failed, catch is ${error.message}` } }
 })

@@ -9,15 +9,15 @@ class MailingService {
             port: 587, //puerto de envio seguro, recomendado
             auth: {
                 // user: envConfig.mailing.USER,
-                // pass: envConfig.mailing.PASSWORD
                 user: "yabloprograma@gmail.com",
                 pass: envConfig.mailing.PASSWORD
             }
         })
     }
 
-    async sendSimpleMail({ from, to, subject, html, attachments: [] }) {
-        let result = await this.client.sendMail({ from, to, subject, html, attachments })
+    async sendSimpleMail({ from, to, subject, message, attachments }) {
+        const innerHtml = `<p>${message}</p>`
+        let result = await this.client.sendMail({ from, to, subject, html: innerHtml, attachments })
         return result
     }
 

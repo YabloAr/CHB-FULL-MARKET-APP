@@ -1,12 +1,13 @@
-const deleteUserButtons = document.querySelectorAll('#deleteUser')
+const deleteProductButtons = document.querySelectorAll('#deleteProduct')
 
-deleteUserButtons.forEach(button => {
+deleteProductButtons.forEach(button => {
     button.addEventListener('click', () => {
         // Get the product's ID from a data attribute on the button
-        const userId = button.dataset.user;
+        const pid = button.dataset.pid
+        const title = button.dataset.title
 
         // Make a fetch request to add the product to the cart using the productId
-        fetch(`http://localhost:8080/api/users/${userId}`, {
+        fetch(`http://localhost:8080/api/products/${pid}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -16,7 +17,7 @@ deleteUserButtons.forEach(button => {
             .then(data => {
                 if (data.status === 200) {
                     Swal.fire({
-                        title: `User ${userId} deleted`,
+                        title: `Product ${title} deleted`,
                         icon: 'success',
                         confirmButtonText: 'Ok'
                     }).then((button) => {
@@ -25,12 +26,16 @@ deleteUserButtons.forEach(button => {
                         }
                     })
                 } else {
-                    alert('Something went wrong with the fetch, oh the stench of failure...' + JSON.stringify(data))
+                    Swal.fire({
+                        title: `Scroundel!`,
+                        icon: 'error',
+                        text: `${data.message}`,
+                        confirmButtonText: 'Ok'
+                    })
                 }
             })
             .catch(error => {
-                // Handle any errors
-                console.error('Error adding product to cart:', error);
+                console.error('Something went wrong with the fetch, oh the stench of failure...:', error);
             });
     });
 });

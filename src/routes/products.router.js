@@ -7,10 +7,10 @@ const router = Router()
 //--------api/products
 
 //agregar middlewares de credentiales
-router.get('/', ProductsController.getAll)
-router.get('/:pid', ProductsController.getProductById)
-router.post('/', ProductsController.createProduct)
-router.put('/:pid', ProductsController.updateProduct)
-router.delete('/:pid', ProductsController.deleteProduct)
+router.get('/', checkSession, ProductsController.getAll)
+router.get('/:pid', checkSession, ProductsController.getProductById)
+router.post('/', checkSession, ProductsController.createProduct)
+router.put('/:pid', checkSession, ProductsController.updateProduct)
+router.delete('/:pid', checkSession, ProductsController.deleteProduct)
 
 export default router

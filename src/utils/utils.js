@@ -40,15 +40,11 @@ export const generateToken = (user) => {
 }
 export const authToken = (req, res, next) => {
     const headerAuth = req.headers
-    console.log(req.headers.authorization)
-    console.log('utils authToken headerAuth is:')
-    console.log(headerAuth)
     if (!headerAuth) return res.status(401).send({ status: 'error', error: 'Not Autorized' })
     //Aplicamos split porque viene como 'Bearer {id}', con el split en el espacio queda solo el string id.
     const token = headerAuth.split(' ')[1]
 
     jwt.verify(token, KEY, (error, credentials) => {
-        console.log(error)
         if (error) return res.status(401).send({ status: 'error', error: 'Not autorized second check.' })
         req.user = credentials.user
         next()

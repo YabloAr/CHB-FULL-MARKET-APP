@@ -15,10 +15,17 @@ form.addEventListener('submit', e => {
     })
         .then(result => result.json())
         .then(result => {
-            console.log(result)
             if (result.status === 200) {
-                { alert(result.message) }
-                window.location.replace('/');
+                Swal.fire({
+                    title: `Welcome`,
+                    text: result.message,
+                    icon: 'success',
+                    confirmButtonText: 'Lets go!'
+                }).then((button) => {
+                    if (button.isConfirmed) {
+                        window.location.replace('/')
+                    }
+                });
             }
             if (result.status === 400) { alert('You are not registered.') }
         })

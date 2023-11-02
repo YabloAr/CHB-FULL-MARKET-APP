@@ -7,12 +7,13 @@ const router = Router()
 
 //----api/users
 router.get('/', UsersController.getAll)
+router.get('/inactive', checkSession, checkAdmin, UsersController.deleteInactive)
 router.get('/:uid', UsersController.getUserById)
 router.post('/generate-recovery-token', UsersController.recoveryPassToken)
 router.post('/reset-password', UsersController.resetPassword)
 router.post('/', UsersController.createUser)
-router.get('/premium/:uid', UsersController.changeRole)
-router.delete('/:uid', UsersController.deleteUser)
+router.get('/premium/:uid', checkSession, checkAdmin, UsersController.changeRole)
+router.delete('/:uid', checkSession, checkAdmin, UsersController.deleteUser)
 
 //MULTER
 router.post('/:uid/documents', userUpload, UsersController.uploadCredentials)

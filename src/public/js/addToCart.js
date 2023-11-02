@@ -15,7 +15,6 @@ addButton.forEach(button => {
             .then((response) => response.json())
             .then((data) => {
                 // Handle the response, e.g., display a success message
-                console.log(data)
                 if (data.payload.status === 200) {
                     Toastify({
                         text: "Product added to cart.",

@@ -13,7 +13,6 @@ router.post('/register', passport.authenticate('register', { failureRedirect: '/
     res.send({ status: 'success', message: 'User registered' })
 })
 router.get('/failedregister', async (req, res) => {
-    console.log("failed register entry")
     res.send({ error: 'Failed register' })
 })
 
@@ -32,7 +31,6 @@ router.post('/login', passport.authenticate('login', { failureRedirect: '/failed
     res.status(200).send({ status: 200, message: `${req.user.first_name} ${req.user.last_name} logged in.` })
 })
 router.get('/failedloginauth', async (req, res) => {
-    console.log('Login failed.')
     res.status(400).send({ status: 400, error: 'Failed Login.' })
 })
 

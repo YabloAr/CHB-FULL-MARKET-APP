@@ -68,6 +68,15 @@ class UserService {
         }
     }
 
+    async deleteInactive() {
+        try {
+            const response = await usersDao.deleteInactive()
+            return response
+        } catch (error) {
+            throw error
+        }
+    }
+
 
 }
 

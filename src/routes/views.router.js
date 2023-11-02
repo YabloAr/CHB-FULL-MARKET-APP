@@ -57,7 +57,7 @@ router.get('/products', checkSession, async (req, res) => {
 
         //Optimizado, validamos la query, si no existe, le otorgamos el valor por defecto.
         const page = parseInt(req.query.page) || 1
-        const limit = parseInt(req.query.limit) || 5
+        const limit = parseInt(req.query.limit) || 6
         const sort = parseInt(req.query.sort) || -1
         const category = req.query.category || ''
 
@@ -154,7 +154,6 @@ router.get('/mockingproducts', checkSession, checkAdmin, async (req, res) => {
         let randomProducts = await createProducts(100)
         res.send({ message: 'Mock products x100 created with faker and falso.', payload: randomProducts })
     } catch (error) {
-        console.log('Mock catch error')
         throw error.message
     }
 })

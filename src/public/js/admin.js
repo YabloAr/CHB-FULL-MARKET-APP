@@ -1,7 +1,5 @@
 const form = document.getElementById('productsCrud')
 
-
-
 //No anda, price y stock se envia como string, por ahora no hace falta, pero resolver.
 form.addEventListener('submit', e => {
     e.preventDefault()
@@ -23,6 +21,6 @@ form.addEventListener('submit', e => {
         }
     })
         .then(result => result.json())
-        .then(result => { console.log(result) })
+        .then(result => { })
 }
 )

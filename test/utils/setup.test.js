@@ -22,6 +22,5 @@ export const dropCarts = async () => {
 }
 
 export const dropUsers = async () => {
-    console.log('drop user null')
     // await userModel.collection.drop()
 }

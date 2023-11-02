@@ -5,7 +5,6 @@ function setupSocket(server) {
     const io = new Server(server);
     //Encendemos el socket con .on (escucha/recibe)
     io.on('connection', socket => {
-        console.log(`New client connected.`)
         //el socket espera algun 'message' desde el cliente (index.js), data llega como objeto, {user: x, message: x}
         socket.on('message', async data => {
             try {

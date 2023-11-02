@@ -55,6 +55,54 @@ nav {
     justify-content: space-around;
 }
 
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/* CSS for a product card */
+.product-card {
+    width: 250px;
+    /* Set the width of the card */
+    border: 1px solid #ccc;
+    /* Border around the card */
+    border-radius: 8px;
+    /* Rounded corners */
+    padding: 10px;
+    /* Padding inside the card */
+    margin-bottom: 20px;
+    /* Spacing between cards */
+    background-color: #588956;
+    /* Background color of the card */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Box shadow for a subtle elevation effect */
+}
+
+/* Style for the product title */
+.product-title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Style for the product description */
+.product-description {
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+/* Style for the product price */
+.product-price {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+
+
 .cardsContainer {
     justify-content: center;
     width: 90%;

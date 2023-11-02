@@ -14,13 +14,11 @@ passport.use('register', new LocalStrategy(
             const userRegisterData = req.body
             let exists = await userModel.findOne({ email: userRegisterData.email })
             if (exists) {
-                console.log("User already exist.")
                 return done(null, false) //Retorna null, false. Porque error en si no hay.
             }
 
             const newUser = await UsersDTO.createUser(userRegisterData)
             let result = await userModel.create(newUser)
-            console.log(result)
             return done(null, result)
         } catch (error) {
             throw error
@@ -33,7 +31,6 @@ passport.use('login', new LocalStrategy({ usernameField: 'email' }, async (userE
     try {
         const user = await userModel.findOne({ email: userEmail })
         if (!user) {
-            console.log("passport.config login strat : user doesnt exist")
             return done(null, false)
         }
         if (!isValidPassword(user, password)) return done(null, false)

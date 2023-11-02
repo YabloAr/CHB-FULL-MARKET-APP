@@ -94,7 +94,6 @@ class UserController {
 
     resetPassword = async (req, res) => {
         try {
-            console.log('----------------------------USER CONTROLLER, resetPassword')
             const newPassword = req.body.password;
             const confirmPassword = req.body.passwordConfirmation;
             const currentPassword = req.body.currentPassword;
@@ -113,8 +112,6 @@ class UserController {
             }
 
             const user = await usersService.getUserByEmail(userEmail)
-            console.log('old user')
-            console.log(user)
 
             // Hash the new password
             const newHashedPassword = bcrypt.hashSync(newPassword, bcrypt.genSaltSync(10))
@@ -129,8 +126,6 @@ class UserController {
                 password: newHashedPassword,
                 role: user.role,
             }
-            console.log('NewUserData')
-            console.log(newUserData)
 
             await usersService.updateUser(newUserData)
 
@@ -142,23 +137,37 @@ class UserController {
     }
 
     uploadCredentials = async (req, res) => {
-        if (!req.files['profile'] || !req.files['address'] || !req.files['account']) {
-            return res.status(400).send({ status: 'error', message: 'No se encontraron todos los archivos esperados o no se especificó el propósito.' });
-        }
-        //Capturamos los archivos
-        const profileImage = req.files['profile'][0];
-        const addressImage = req.files['address'][0];
-        const accountImage = req.files['account'][0];
+        try {
+            if (!req.files['profile'] || !req.files['address'] || !req.files['account']) {
+                return res.status(400).send({ status: 'error', message: 'No se encontraron todos los archivos esperados o no se especificó el propósito.' });
+            }
+            //Capturamos los archivos
+            const profileImage = req.files['profile'][0];
+            const addressImage = req.files['address'][0];
+            const accountImage = req.files['account'][0];
 
-        //Agregamos los documentos al usuario
-        const user = await usersService.getUserByEmail(req.session.user.email)
-        user.documents = [
-            { name: 'profile', reference: profileImage.path },
-            { name: 'address', reference: addressImage.path },
-            { name: 'account', reference: accountImage.path }
-        ];
-        const response = await usersService.updateUser(user)
-        res.status(200).send({ status: 'Success', payload: response });
+            //Agregamos los documentos al usuario
+            const user = await usersService.getUserByEmail(req.session.user.email)
+            user.documents = [
+                { name: 'profile', reference: profileImage.path },
+                { name: 'address', reference: addressImage.path },
+                { name: 'account', reference: accountImage.path }
+            ];
+            const response = await usersService.updateUser(user)
+            res.status(200).send({ status: 'Success', payload: response });
+        } catch (error) {
+            throw error
+        }
+
+    }
+
+    deleteInactive = async (req, res) => {
+        try {
+            const response = await usersService.deleteInactive()
+            res.status(200).send(response)
+        } catch (error) {
+            throw error
+        }
     }
 }
 
