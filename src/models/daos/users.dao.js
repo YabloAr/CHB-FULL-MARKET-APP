@@ -13,7 +13,6 @@ class UsersDAO {
         } catch (error) {
             throw error;
         }
-
     }
 
     //GET PRODUCT BY ID

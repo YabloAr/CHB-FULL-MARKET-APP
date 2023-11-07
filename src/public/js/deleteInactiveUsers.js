@@ -1,9 +1,7 @@
-//stand by for router
 const deleteInactiveButton = document.getElementById('deleteInactiveUsers')
 
 deleteInactiveButton.addEventListener('click', (e) => {
     e.preventDefault()
-
     fetch(`/api/users/inactive`, {
         method: 'GET',
         headers: {

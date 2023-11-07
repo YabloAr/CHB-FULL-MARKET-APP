@@ -32,13 +32,13 @@ router.get('/', checkSession, async (req, res) => {
     const toProfile = 'http://localhost:8080/profile'
     const toChat = 'http://localhost:8080/chat'
     const toCurrent = 'http://localhost:8080/api/sessions/current'
-    const toAdminCrud = 'http://localhost:8080/admin'
+    const toProductCrud = 'http://localhost:8080/createProduct'
     const toMockingProducts = 'http://localhost:8080/mockingproducts'
     const toUsers = 'http://localhost:8080/users'
     const toCart = `http://localhost:8080/carts/${cartId}`
     const toTickets = 'http://localhost:8080/api/tickets'
 
-    res.render('pageLanding', { currentUser, toTickets, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toAdminCrud, toMockingProducts, toCart, toUsers })
+    res.render('pageLanding', { currentUser, toTickets, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toProductCrud, toMockingProducts, toCart, toUsers })
 })
 
 
@@ -47,6 +47,7 @@ router.get('/products', checkSession, async (req, res) => {
     try {
         const user = await usersService.getUserByEmail(req.session.user.email)
         const { _id, first_name, last_name, email, role, cartId } = user
+
         const currentUser = {
             fullname: first_name + " " + last_name,
             email,
@@ -128,8 +129,8 @@ router.get('/profile', checkSession, async (req, res) => {
 
 
 //-------------------------------ADMIN
-router.get('/admin', checkSession, checkAdmin, async (req, res) => {
-    res.render('adminCrud')
+router.get('/createProduct', checkSession, async (req, res) => {
+    res.render('productCrud')
 })
 
 router.get('/users', checkSession, checkAdmin, async (req, res) => {

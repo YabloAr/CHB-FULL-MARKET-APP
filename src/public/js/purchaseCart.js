@@ -14,7 +14,7 @@ purchaseButton.addEventListener('click', () => {
         .then(data => {
             if (data.status === 200) {
                 Toastify({
-                    text: "User deleted.",
+                    text: "Cart Purchased",
                     duration: 3000,
                     newWindow: false,
                     close: true,
@@ -26,6 +26,7 @@ purchaseButton.addEventListener('click', () => {
                     },
                     onClick: function () { } // Callback after click
                 }).showToast();
+                window.location.reload()
             } else {
                 alert('Something went wrong with the fetch, oh the stench of failure...' + JSON.stringify(data))
             }

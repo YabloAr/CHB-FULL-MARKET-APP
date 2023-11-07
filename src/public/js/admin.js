@@ -12,7 +12,6 @@ form.addEventListener('submit', e => {
         thumbnail: form.thumbnail.value
     }
 
-
     fetch('api/products', {
         method: 'POST',
         body: JSON.stringify(data),

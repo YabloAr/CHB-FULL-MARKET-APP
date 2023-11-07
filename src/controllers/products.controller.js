@@ -29,11 +29,18 @@ class ProductController {
     //NEW PRODUCT
     createProduct = async (req, res) => {
         try {
-            let newProduct = req.body
+            let productDataReceived = req.body
+            let newProduct = {
+                title: productDataReceived.title,
+                description: productDataReceived.description,
+                category: productDataReceived.category,
+                price: parseInt(productDataReceived.price),
+                stock: parseInt(productDataReceived.stock),
+                thumbnail: productDataReceived.thumbnail,
+            }
             newProduct.owner = (req.session.role === 'admin' ? req.session.role : req.session.user.email)
 
             const completeProduct = new ProductDTO(newProduct)
-
             const response = await ProductsService.createProduct(completeProduct)
             res.status(200).send(response)
         } catch (error) {
