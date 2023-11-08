@@ -4,7 +4,6 @@ import productModel from '../schemas/products.schema.js'
 
 class CartsDAO {
     constructor() {
-        console.log('Carts DAO connected.')
     }
 
     getAll = async () => {

@@ -5,7 +5,6 @@ import envConfig from '../../config/env.config.js';
 
 class ProductsDAO {
     constructor() {
-        console.log('Products DAO conected.')
     }
 
     //GET ALL

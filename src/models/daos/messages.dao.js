@@ -2,7 +2,6 @@ import messageModel from '../schemas/messages.schema.js';
 
 class MessagesDAO {
     constructor() {
-        console.log('Messages DAO connected.')
     }
 
     getAllMessages = async () => {

@@ -2,7 +2,6 @@ import ticketsModel from './../schemas/tickets.schema.js';
 
 class TicketsDAO {
     constructor() {
-        console.log('Tickets DAO connected.')
     }
 
     getAll = async () => {

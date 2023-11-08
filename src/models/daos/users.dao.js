@@ -2,7 +2,6 @@ import userModel from "../schemas/users.schema.js";
 
 class UsersDAO {
     constructor() {
-        console.log('Users DAO conected.')
     }
 
     //GET ALL
