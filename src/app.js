@@ -19,9 +19,6 @@ import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUiExpress from 'swagger-ui-express';
 import addLogger from './middlewares/logger.middleware.js';
 
-
-//-----------------Comienzo configuracion de la app
-
 //EXPRESS - Definimos el servidor y su config
 const PORT = envConfig.server.PORT
 const app = express()
@@ -72,8 +69,6 @@ app.use(addLogger)
 
 //SOCKET IO - Instanciamos el socket en nuestro server
 setupSocket(httpserver)
-
-//---------------final del inicio de App
 
 //SWAGGER Documentacion de API
 
