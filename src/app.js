@@ -59,7 +59,7 @@ app.use("/", appRouter)
 app.engine('handlebars', handlebars.engine()) //habilitamos el uso del motor de plantillas en el servidor.
 app.set('views', __src + '/views') //declaramos la carpeta con las vistas para las plantillas.
 app.set('view engine', 'handlebars') //le decimos a express que use el motor de vistas de handlebars.
-app.use(express.static(__src + '/public')) //estaba en socket
+app.use(express.static(`${__src}/public`))
 
 //PASSPORT - Indicamos el uso de passport
 initPassport()
