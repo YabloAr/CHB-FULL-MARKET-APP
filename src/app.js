@@ -23,7 +23,10 @@ import addLogger from './middlewares/logger.middleware.js';
 const PORT = envConfig.server.PORT || 8080
 const app = express()
 app.use(cors())
-const httpserver = app.listen(PORT, () => { console.log('Server up.') })
+const httpserver = app.listen(PORT, () => {
+    console.log('Server up.')
+    console.log(__src + '/public')
+})
 
 //JSON REQUEST - Agregamos el middleware de parseo de las request
 app.use(express.json())
