@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon src/app.js --mode DEVELOPMENT",
-    "start": "node src/app.js --omit=dev",
+    "start": "npm install --omit=dev && node src/app.js --mode PRODUCTION",
     "test": "mocha test/**/*.js"
   },
   "author": "",
