@@ -1,13 +1,27 @@
-import 'dotenv/config'
+import dotenv from "dotenv";
+import { Command } from "commander";
+
+const program = new Command();
+program.option("--mode <mode>", "Modo de trabajo", "DEVELOPMENT");
+program.parse();
+
+dotenv.config({
+    path:
+        program.opts().mode === "DEVELOPMENT"
+            ? "./.env.development"
+            : "./.env.production",
+});
+
+console.log("Options => ", program.opts());
 
 export default {
     server: {
-        PORT: parseInt(process.env.PORT),
-        STAGE: process.env.STAGE || 'production',
+        PORT: parseInt(process.env.PORT) || 8080,
+        STAGE: process.env.STAGE,
         LOGGER_LEVEL: process.env.LOGGER_LEVEL
     },
     mongo: {
-        URL: `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASS}@cluster0.hiwmxr5.mongodb.net/ecommerce?retryWrites=true&w=majority`
+        URL: process.env.MONGO_URL
     },
     sessions: {
         SECRET: process.env.SESSION_SECRET,
