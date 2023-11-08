@@ -1,7 +1,13 @@
 # CODERHOUSE - BACKEND #43360 - Tercera Entrega de Proyecto Final
 ### Tutoria a cargo de: Noelia Cossio.
 
-Repositorio para la entrega de la clase numero 44 "Cuarta practica integradora"
+Repositorio de proyecto final del curso de Backend en Coderhouse, Nov 2023.
+
+Aqui encontraras una app completa integrando un backend totalmente funcional con un front simple pero preciso hecho con handlebars.
+
+Para poder navegar en la app, vas a necesitar registrarte y una vez logueado llegaras a la landing page.
+En la landing page encontraras botones para testear cada una de las funcionalidades del servidor.
+La cuenta creada seria nivel "user", por lo cual tendrias acceso a solo una parte de la aplicacion.
 
 ## Proyecto en Progreso: Servidor Backend para Ecommerce
 
@@ -32,4 +38,4 @@ Aprendiendo y codeando, a continuación una vista rápida! :
 
 ## Licencia
 
-Este proyecto está bajo una licencia que no existe llamada 'Usa este codigo a tu propia suerte' 😄
+I dont know....do i need one?

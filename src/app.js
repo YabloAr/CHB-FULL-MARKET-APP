@@ -20,7 +20,7 @@ import swaggerUiExpress from 'swagger-ui-express';
 import addLogger from './middlewares/logger.middleware.js';
 
 //EXPRESS - Definimos el servidor y su config
-const PORT = envConfig.server.PORT
+const PORT = envConfig.server.PORT || 8080
 const app = express()
 app.use(cors())
 const httpserver = app.listen(PORT, () => console.log("Server up."))
