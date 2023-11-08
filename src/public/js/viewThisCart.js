@@ -6,7 +6,7 @@ viewThisCartButton.forEach(button => {
         const cartId = button.dataset.cid;
 
         // Make a fetch request to add the product to the cart using the productId
-        fetch(`http://localhost:8080/api/carts/${cartId}`, {
+        fetch(`/api/carts/${cartId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

@@ -7,7 +7,7 @@ deleteProductButtons.forEach(button => {
         const title = button.dataset.title
 
         // Make a fetch request to add the product to the cart using the productId
-        fetch(`http://localhost:8080/api/products/${pid}`, {
+        fetch(`/api/products/${pid}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'

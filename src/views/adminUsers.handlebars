@@ -1,5 +1,5 @@
 <h2>USERS VIEW</h2>
-<a href="http://localhost:8080/"> <button> Home </button></a>
+<a href="/"> <button> Home </button></a>
 <h3>Welcome {{current.first_name}} {{current.last_name}}</h3>
 <button id="deleteInactiveUsers" style="width: 120px">Delete Inactive User</button>
 <button style="width: 120px" id="logout">Logout </button>
@@ -10,11 +10,11 @@
       <h3>Email: {{this.email}}</h3>
       <h3>Role: {{this.role}}</h3>
 
-      <a href="http://localhost:8080/api/users/premium/{{this._id}}">
+      <a href="/api/users/premium/{{this._id}}">
         <button id="changeRole" style="width: 120px" type="submit">See his Carrito &#128526</button>
       </a>
 
-      <a href="http://localhost:8080/api/users/premium/{{this._id}}">
+      <a href="/api/users/premium/{{this._id}}">
         <button id="changeRole" style="width: 120px" type="submit">Change Role &#129312</button>
       </a>
 

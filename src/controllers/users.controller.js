@@ -79,7 +79,7 @@ class UserController {
 
             const currentPassword = user.password
             const token = jwt.sign({ userEmail: user.email, currentPassword }, envConfig.sessions.JWT_KEY, { expiresIn: '1h' })
-            const resetLink = `http://localhost:8080/reset-password/${token}`
+            const resetLink = `/reset-password/${token}`
 
             await MailingService.resetPassword(userEmail, resetLink)
 

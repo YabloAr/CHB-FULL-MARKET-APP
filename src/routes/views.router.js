@@ -25,18 +25,18 @@ router.get('/', checkSession, async (req, res) => {
         _id
     }
 
-    const toProducts = 'http://localhost:8080/products'
-    const toCarts = 'http://localhost:8080/carts'
-    const toLogin = 'http://localhost:8080/login'
-    const toRegister = 'http://localhost:8080/register'
-    const toProfile = 'http://localhost:8080/profile'
-    const toChat = 'http://localhost:8080/chat'
-    const toCurrent = 'http://localhost:8080/api/sessions/current'
-    const toProductCrud = 'http://localhost:8080/createProduct'
-    const toMockingProducts = 'http://localhost:8080/mockingproducts'
-    const toUsers = 'http://localhost:8080/users'
-    const toCart = `http://localhost:8080/carts/${cartId}`
-    const toTickets = 'http://localhost:8080/api/tickets'
+    const toProducts = '/products'
+    const toCarts = '/carts'
+    const toLogin = '/login'
+    const toRegister = '/register'
+    const toProfile = '/profile'
+    const toChat = '/chat'
+    const toCurrent = '/api/sessions/current'
+    const toProductCrud = '/createProduct'
+    const toMockingProducts = '/mockingproducts'
+    const toUsers = '/users'
+    const toCart = `/carts/${cartId}`
+    const toTickets = '/api/tickets'
 
     res.render('pageLanding', { currentUser, toTickets, toProducts, toCarts, toLogin, toRegister, toProfile, toChat, toCurrent, toProductCrud, toMockingProducts, toCart, toUsers })
 })

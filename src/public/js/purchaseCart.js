@@ -4,7 +4,7 @@ purchaseButton.addEventListener('click', () => {
     const cid = purchaseButton.dataset.purchasecartid;
 
 
-    fetch(`http://localhost:8080/api/tickets/${cid}/purchase`, {
+    fetch(`/api/tickets/${cid}/purchase`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'

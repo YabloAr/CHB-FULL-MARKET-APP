@@ -5,7 +5,7 @@ addButton.forEach(button => {
     button.addEventListener("click", () => {
         const pid = button.dataset.pid;
         const cid = button.dataset.cid;
-        fetch(`http://localhost:8080/api/carts/${cid}/products/${pid}`, {
+        fetch(`/api/carts/${cid}/products/${pid}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -17,7 +17,7 @@ addButton.forEach(button => {
                     Toastify({
                         text: "Product added to cart.",
                         duration: 3000,
-                        destination: `http://localhost:8080/carts/${cid}`,
+                        destination: `/carts/${cid}`,
                         newWindow: false,
                         close: true,
                         gravity: "bottom",

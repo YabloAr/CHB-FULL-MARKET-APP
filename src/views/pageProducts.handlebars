@@ -1,9 +1,9 @@
 <h2>PRODUCTS VIEW</h2>
-<a href='http://localhost:8080/'> <button> Home </button></a>
+<a href='/'> <button> Home </button></a>
 <h3>Welcome {{currentUser.fullname}}, {{currentUser.email}}. ROLE: {{currentUser.role}}</h3>
 <button style="width: 120px" id="logout">Logout </button>
 To your cart:
-    <a href="http://localhost:8080/carts/{{currentUser.cartId}}"><img src="https://res.cloudinary.com/dfrvbm0im/image/upload/v1698252664/cart_r4bnl9.png" alt="toCart" style="max-width: 100px" /></a>
+    <a href="/carts/{{currentUser.cartId}}"><img src="https://res.cloudinary.com/dfrvbm0im/image/upload/v1698252664/cart_r4bnl9.png" alt="toCart" style="max-width: 100px" /></a>
     <div class="product-container">
 {{#each products}}
   <div class="product-card">
@@ -31,11 +31,11 @@ To your cart:
 <div style="flex-direction: row;justify-content: space-around;background-color: #588956">
   {{#if hasPrevPage}}
   <a
-    href="http://localhost:8080/products/?limit={{limit}}&sort={{sort}}&page={{prevPage}}{{#if category}}&category={{category}}{{/if}}"><button>Next Page</button></a>
+    href="/products/?limit={{limit}}&sort={{sort}}&page={{prevPage}}{{#if category}}&category={{category}}{{/if}}"><button>Next Page</button></a>
   {{/if}}
   {{#if hasNextPage}}
   <a
-    href="http://localhost:8080/products/?limit={{limit}}&sort={{sort}}&page={{nextPage}}{{#if category}}&category={{category}}{{/if}}"><button>Previous Page</button></a>
+    href="/products/?limit={{limit}}&sort={{sort}}&page={{nextPage}}{{#if category}}&category={{category}}{{/if}}"><button>Previous Page</button></a>
   {{/if}}
 </div>
 <script src="/js/logout.js"></script>
