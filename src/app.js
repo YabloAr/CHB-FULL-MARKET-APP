@@ -25,7 +25,6 @@ const app = express()
 app.use(cors())
 const httpserver = app.listen(PORT, () => {
     console.log('Server up.')
-    console.log(__src + '/public')
 })
 
 //JSON REQUEST - Agregamos el middleware de parseo de las request
